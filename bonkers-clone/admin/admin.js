@@ -1,3 +1,4 @@
+﻿const BC_API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:5000/api' : '/api';
 // ===== ADMIN PANEL =====
 'use strict';
 
@@ -6,17 +7,17 @@ let allProducts = [], allInventory = [], allUsers = [];
 let productPage = 1, orderPage = 1, userPage = 1;
 let editingProductId = null, currentOrderId = null, deleteTargetId = null;
 
-// ── Debounce ──
+// â”€â”€ Debounce â”€â”€
 function debounce(fn, ms) {
   let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
 }
 
-// ── Formatters ──
-const fmt     = n  => '₹' + Number(n||0).toLocaleString('en-IN');
+// â”€â”€ Formatters â”€â”€
+const fmt     = n  => 'â‚¹' + Number(n||0).toLocaleString('en-IN');
 const fmtDate = d  => new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
 const fmtTime = d  => new Date(d).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
 
-// ── Toast ──
+// â”€â”€ Toast â”€â”€
 function toast(msg, type='') {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -24,11 +25,11 @@ function toast(msg, type='') {
   clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-// ── Modal helpers ──
+// â”€â”€ Modal helpers â”€â”€
 function openModal(id)  { document.getElementById(id)?.classList.add('open'); }
 function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
 
-// ── Auth Guard ──
+// â”€â”€ Auth Guard â”€â”€
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('bc_token');
   const user  = (() => { try { return JSON.parse(localStorage.getItem('bc_user')||'null'); } catch(_){return null;} })();
@@ -63,7 +64,7 @@ function adminLogout() {
   window.location.href = '../pages/login.html';
 }
 
-// ── Navigation ──
+// â”€â”€ Navigation â”€â”€
 function setupNav() {
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', e => {
@@ -99,7 +100,7 @@ async function loadDashboard() {
     { label:'Total Orders',    value: stats.totalOrders.toLocaleString(),icon:'fa-box', color:'' },
     { label:'Active Products', value: stats.totalProducts,               icon:'fa-tshirt', color:'' },
     { label:"Today's Orders",  value: stats.todayOrders,                 icon:'fa-calendar-day', color:'blue', sub: fmt(stats.todayRevenue)+' today' },
-    { label:'Low Stock Items', value: lowStock.length,                   icon:'fa-exclamation-triangle', color: lowStock.length>0?'red':'', sub: lowStock.length>0?'Need restock':'All good ✅' }
+    { label:'Low Stock Items', value: lowStock.length,                   icon:'fa-exclamation-triangle', color: lowStock.length>0?'red':'', sub: lowStock.length>0?'Need restock':'All good âœ…' }
   ].map(s => `
     <div class="stat-card ${s.color}">
       <i class="fa ${s.icon} stat-icon"></i>
@@ -151,12 +152,12 @@ async function loadDashboard() {
 
   // Low stock
   document.getElementById('lowStockList').innerHTML = !lowStock.length
-    ? '<p class="empty-msg">All products well stocked ✅</p>'
+    ? '<p class="empty-msg">All products well stocked âœ…</p>'
     : lowStock.map(p => `
         <div class="low-stock-item">
           <div>
             <div class="low-stock-name">${p.name}</div>
-            <div class="low-stock-detail">${p.variants.map(v=>`${v.size}:${v.stock}`).join(' · ')}</div>
+            <div class="low-stock-detail">${p.variants.map(v=>`${v.size}:${v.stock}`).join(' Â· ')}</div>
           </div>
           <button class="btn-sm" onclick="openRestockModal(${p.productId},'${p.name.replace(/'/g,"\\'")}',${JSON.stringify(p.variants.map(v=>v.size))})">
             Restock
@@ -177,7 +178,7 @@ function renderOfflineBanner(id) {
 
 // ===== PRODUCTS =====
 async function loadProducts() {
-  // Use admin inventory endpoint — returns ALL products including inactive
+  // Use admin inventory endpoint â€” returns ALL products including inactive
   const data = await adminFetch('/admin/inventory');
   allProducts = data?.products || [];
   document.getElementById('productCount').textContent = allProducts.length;
@@ -207,14 +208,14 @@ function renderProductsTable(list) {
         <td><img src="${p.images?.[0]||''}" class="product-thumb" alt="${p.name}" onerror="this.style.display='none'" /></td>
         <td>
           <strong>${p.name}</strong>
-          <div style="font-size:11px;color:#64748b">#${p.productId} · ${p.slug||''}</div>
+          <div style="font-size:11px;color:#64748b">#${p.productId} Â· ${p.slug||''}</div>
         </td>
         <td><span class="badge" style="background:#f1f5f9;color:#334155">${p.category}</span></td>
         <td><strong>${fmt(p.price)}</strong></td>
         <td style="color:#94a3b8;text-decoration:line-through">${fmt(p.originalPrice)}</td>
         <td><span class="${sc}">${stock}</span></td>
-        <td>${p.badge ? `<span class="badge badge-${p.badge}">${p.badge.toUpperCase()}</span>` : '—'}</td>
-        <td>${p.isFeatured ? '<i class="fa fa-star" style="color:#f59e0b"></i>' : '—'}</td>
+        <td>${p.badge ? `<span class="badge badge-${p.badge}">${p.badge.toUpperCase()}</span>` : 'â€”'}</td>
+        <td>${p.isFeatured ? '<i class="fa fa-star" style="color:#f59e0b"></i>' : 'â€”'}</td>
         <td>
           <div class="actions-cell">
             <button class="btn-icon" onclick="editProduct('${p._id}')" title="Edit"><i class="fa fa-edit"></i></button>
@@ -229,7 +230,7 @@ function renderProductsTable(list) {
   renderPagination('productsPagination', list.length, productPage, n => { productPage=n; renderProductsTable(list); });
 }
 
-// ── Product Modal ──
+// â”€â”€ Product Modal â”€â”€
 function openProductModal() {
   editingProductId = null;
   document.getElementById('productModalTitle').textContent = 'Add New Product';
@@ -255,7 +256,7 @@ function editProduct(id) {
   const p = allProducts.find(x => x._id === id);
   if (!p) return;
   editingProductId = id;
-  document.getElementById('productModalTitle').textContent = 'Edit Product — ' + p.name;
+  document.getElementById('productModalTitle').textContent = 'Edit Product â€” ' + p.name;
   document.getElementById('pName').value          = p.name;
   document.getElementById('pCategory').value      = p.category;
   document.getElementById('pCollection').value    = p.collection || '';
@@ -301,8 +302,8 @@ function previewProduct() {
       <div style="padding:10px">
         <div style="font-size:12px;font-weight:600;margin-bottom:4px">${name}</div>
         <div style="display:flex;gap:6px;align-items:center">
-          <span style="font-size:13px;font-weight:700">₹${price.toLocaleString('en-IN')}</span>
-          ${orig ? `<span style="font-size:11px;color:#aaa;text-decoration:line-through">₹${orig.toLocaleString('en-IN')}</span>` : ''}
+          <span style="font-size:13px;font-weight:700">â‚¹${price.toLocaleString('en-IN')}</span>
+          ${orig ? `<span style="font-size:11px;color:#aaa;text-decoration:line-through">â‚¹${orig.toLocaleString('en-IN')}</span>` : ''}
           ${save ? `<span style="font-size:10px;color:#e63946;font-weight:700">Save ${save}%</span>` : ''}
         </div>
       </div>
@@ -353,11 +354,11 @@ async function saveProduct() {
       : await adminFetch('/products', { method:'POST', body:JSON.stringify(body) });
 
     if (res?.success) {
-      toast(editingProductId ? '✅ Product updated successfully' : '✅ Product created — customers can now see it');
+      toast(editingProductId ? 'âœ… Product updated successfully' : 'âœ… Product created â€” customers can now see it');
       closeModal('productModal');
       await loadProducts();
     } else if (res === null) {
-      toast('⚠️ Backend offline — product not saved', 'error');
+      toast('âš ï¸ Backend offline â€” product not saved', 'error');
     } else {
       toast(res.message || 'Failed to save', 'error');
     }
@@ -378,7 +379,7 @@ async function confirmDelete() {
   const { id, isActive } = deleteTargetId;
   const res = await adminFetch(`/products/${id}`, { method:'PUT', body:JSON.stringify({ isActive: !isActive }) });
   if (res?.success) {
-    toast(isActive ? 'Product deactivated — hidden from store' : 'Product activated — visible in store');
+    toast(isActive ? 'Product deactivated â€” hidden from store' : 'Product activated â€” visible in store');
     closeModal('deleteModal');
     loadProducts();
   } else toast('Backend offline', 'error');
@@ -405,7 +406,7 @@ function renderOrdersTable(orders, total) {
     <tr>
       <td><strong style="font-family:monospace;font-size:12px">${o.orderId}</strong></td>
       <td>
-        <div style="font-weight:600;font-size:13px">${o.user ? o.user.firstName+' '+o.user.lastName : '—'}</div>
+        <div style="font-weight:600;font-size:13px">${o.user ? o.user.firstName+' '+o.user.lastName : 'â€”'}</div>
         <div style="font-size:11px;color:#64748b">${o.userEmail}</div>
       </td>
       <td>${o.items?.length||0} item(s)</td>
@@ -434,7 +435,7 @@ async function viewOrder(orderId) {
     <div class="order-detail-grid">
       <div class="detail-block">
         <h4>Customer</h4>
-        <p><strong>${o.address?.name||'—'}</strong><br>${o.userEmail}<br>${o.address?.phone||''}</p>
+        <p><strong>${o.address?.name||'â€”'}</strong><br>${o.userEmail}<br>${o.address?.phone||''}</p>
       </div>
       <div class="detail-block">
         <h4>Delivery Address</h4>
@@ -460,14 +461,14 @@ async function viewOrder(orderId) {
           <img src="${i.img}" class="order-item-img" alt="${i.name}" onerror="this.style.display='none'" />
           <div class="order-item-info">
             <h4>${i.name}</h4>
-            <p>Size: ${i.size} · Qty: ${i.qty} · ₹${i.price.toLocaleString('en-IN')} each</p>
+            <p>Size: ${i.size} Â· Qty: ${i.qty} Â· â‚¹${i.price.toLocaleString('en-IN')} each</p>
           </div>
           <div class="order-item-price">${fmt(i.price*i.qty)}</div>
         </div>`).join('')}
     </div>
     <div style="background:#f8fafc;padding:14px;border-radius:6px;margin:12px 0;font-size:13px">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Subtotal</span><span>${fmt(o.subtotal)}</span></div>
-      ${o.discount?`<div style="display:flex;justify-content:space-between;margin-bottom:4px;color:#166534"><span>Discount</span><span>−${fmt(o.discount)}</span></div>`:''}
+      ${o.discount?`<div style="display:flex;justify-content:space-between;margin-bottom:4px;color:#166534"><span>Discount</span><span>âˆ’${fmt(o.discount)}</span></div>`:''}
       <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Shipping</span><span>${o.shipping===0?'FREE':fmt(o.shipping)}</span></div>
       ${o.codFee?`<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>COD Fee</span><span>${fmt(o.codFee)}</span></div>`:''}
       <div style="display:flex;justify-content:space-between;font-weight:800;font-size:15px;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:4px"><span>Total</span><span>${fmt(o.total)}</span></div>
@@ -487,7 +488,7 @@ async function viewOrder(orderId) {
           <div class="tracking-dot"></div>
           <div class="tracking-info">
             <strong>${t.status?.replace(/_/g,' ')}</strong>
-            <span>${t.message} · ${fmtTime(t.timestamp)}</span>
+            <span>${t.message} Â· ${fmtTime(t.timestamp)}</span>
           </div>
         </div>`).join('')}
     </div>`;
@@ -500,7 +501,7 @@ async function submitStatusUpdate() {
   const res = await adminFetch(`/admin/orders/${currentOrderId}/status`, {
     method:'PUT', body:JSON.stringify({ status, message })
   });
-  if (res?.success) { toast('✅ Order status updated'); closeModal('orderModal'); loadOrders(); }
+  if (res?.success) { toast('âœ… Order status updated'); closeModal('orderModal'); loadOrders(); }
   else toast('Backend offline', 'error');
 }
 
@@ -535,7 +536,7 @@ function renderInventoryTable(list) {
     const tc    = total===0?'stock-out':total<=(p.lowStockAlert||5)?'stock-low':'stock-ok';
     const cells = sizes.map(sz => {
       const v = p.variants?.find(x=>x.size===sz);
-      if (!v) return '<td class="stock-cell" style="color:#cbd5e1">—</td>';
+      if (!v) return '<td class="stock-cell" style="color:#cbd5e1">â€”</td>';
       const c = v.stock===0?'stock-out':v.stock<=(p.lowStockAlert||5)?'stock-low':'stock-ok';
       return `<td class="stock-cell"><span class="${c}">${v.stock}</span></td>`;
     }).join('');
@@ -574,7 +575,7 @@ async function submitRestock() {
   const res = await adminFetch(`/admin/inventory/${productId}/restock`, {
     method:'PUT', body:JSON.stringify({ size, qty, note })
   });
-  if (res?.success) { toast(`✅ ${res.message||'Restocked successfully'}`); closeModal('restockModal'); loadInventory(); }
+  if (res?.success) { toast(`âœ… ${res.message||'Restocked successfully'}`); closeModal('restockModal'); loadInventory(); }
   else toast('Backend offline', 'error');
 }
 
@@ -588,12 +589,12 @@ async function loadInventoryLogs() {
     <tr>
       <td style="font-size:11px">${fmtTime(l.createdAt)}</td>
       <td>${l.productName}</td>
-      <td>${l.size||'—'}</td>
+      <td>${l.size||'â€”'}</td>
       <td><span class="badge" style="background:${l.type==='restock'?'#d1fae5':l.type==='sale'?'#dbeafe':'#fef3c7'};color:${l.type==='restock'?'#065f46':l.type==='sale'?'#1e40af':'#92400e'}">${l.type}</span></td>
       <td><strong>${l.type==='sale'?'-':'+'}${l.qty}</strong></td>
-      <td>${l.before??'—'}</td>
-      <td>${l.after??'—'}</td>
-      <td style="font-size:12px;color:#64748b">${l.note||'—'}</td>
+      <td>${l.before??'â€”'}</td>
+      <td>${l.after??'â€”'}</td>
+      <td style="font-size:12px;color:#64748b">${l.note||'â€”'}</td>
     </tr>`).join('') || '<tr><td colspan="8" class="empty-cell">No logs</td></tr>';
 }
 
@@ -625,7 +626,7 @@ async function loadUsers() {
         </div>
       </td>
       <td>${u.email}</td>
-      <td>${u.phone||'—'}</td>
+      <td>${u.phone||'â€”'}</td>
       <td style="font-size:12px">${fmtDate(u.createdAt)}</td>
       <td><span class="badge ${u.isActive?'badge-active':'badge-inactive'}">${u.isActive?'Active':'Blocked'}</span></td>
       <td>
@@ -690,9 +691,9 @@ function renderPagination(id, total, current, onPage) {
   if (pages <= 1) { document.getElementById(id).innerHTML=''; return; }
   let html = '';
   const start = Math.max(1, current-2), end = Math.min(pages, current+2);
-  if (start > 1) html += `<button class="page-btn" onclick="(${onPage.toString()})(1)">1</button>${start>2?'<span style="padding:0 4px">…</span>':''}`;
+  if (start > 1) html += `<button class="page-btn" onclick="(${onPage.toString()})(1)">1</button>${start>2?'<span style="padding:0 4px">â€¦</span>':''}`;
   for (let i=start; i<=end; i++) html += `<button class="page-btn ${i===current?'active':''}" onclick="(${onPage.toString()})(${i})">${i}</button>`;
-  if (end < pages) html += `${end<pages-1?'<span style="padding:0 4px">…</span>':''}<button class="page-btn" onclick="(${onPage.toString()})(${pages})">${pages}</button>`;
+  if (end < pages) html += `${end<pages-1?'<span style="padding:0 4px">â€¦</span>':''}<button class="page-btn" onclick="(${onPage.toString()})(${pages})">${pages}</button>`;
   document.getElementById(id).innerHTML = html;
 }
 
@@ -703,3 +704,5 @@ function downloadCSV(rows, filename) {
   a.href    = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   a.download= filename; a.click();
 }
+
+

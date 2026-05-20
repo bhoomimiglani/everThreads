@@ -1,5 +1,8 @@
 // ===== API CLIENT =====
-const API_BASE = 'http://localhost:5000/api';
+// Auto-detects backend URL: same origin in production, localhost:5000 in dev
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:5000/api'
+  : '/api';  // same origin on Render
 
 // ── Token / User helpers ──
 const getToken  = ()  => localStorage.getItem('bc_token');

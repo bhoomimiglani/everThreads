@@ -363,7 +363,9 @@
 
 <script>
 // Inline API base — no dependency on api.js
-const ADMIN_API = 'http://localhost:5000/api';
+const BC_API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:5000/api' : '/api';
+const ADMIN_API = BC_API;
 function adminToken() { return localStorage.getItem('bc_token'); }
 async function adminFetch(path, opts={}) {
   const h = {'Content-Type':'application/json'};

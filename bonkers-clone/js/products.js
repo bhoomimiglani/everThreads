@@ -1,4 +1,4 @@
-// ===== PRODUCT DATABASE (static fallback) =====
+﻿// ===== PRODUCT DATABASE (static fallback) =====
 const products = [
   { id:1,  name:"Acid Wash Oversized Tee",      category:"men",    price:799,  originalPrice:919,  img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=533&fit=crop&crop=top",    badge:"sale", colors:["#1a1a1a","#4a4a4a","#8b0000"], tag:"trending", collection:"summer",   sizes:["XS","S","M","L","XL","XXL"], rating:4.5, reviews:128 },
   { id:2,  name:"Graphic Drop Shoulder Tee",    category:"women",  price:849,  originalPrice:979,  img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=533&fit=crop&crop=top",   badge:"sale", colors:["#ffffff","#000000","#2d6a4f"], tag:"new",      collection:"summer",   sizes:["XS","S","M","L","XL"],       rating:4.7, reviews:94  },
@@ -22,7 +22,7 @@ const products = [
   { id:20, name:"Pastel Oversized Hoodie",      category:"women",  price:1199, originalPrice:1449, img:"https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&h=533&fit=crop&crop=top",      badge:"sale", colors:["#cdb4db","#a2d2ff","#bde0fe"], tag:"new",      collection:"basics",   sizes:["XS","S","M","L","XL"],       rating:4.6, reviews:112 }
 ];
 
-// ── Normalise API product → local shape ──
+// â”€â”€ Normalise API product â†’ local shape â”€â”€
 function normaliseProduct(p) {
   return {
     id:            p.productId || p.id,
@@ -45,7 +45,7 @@ function normaliseProduct(p) {
   };
 }
 
-// ── Helpers ──
+// â”€â”€ Helpers â”€â”€
 function getSavePercent(price, original) {
   return Math.round(((original - price) / original) * 100);
 }
@@ -60,13 +60,13 @@ function renderStars(rating) {
   return s;
 }
 
-// ── Product Card ──
+// â”€â”€ Product Card â”€â”€
 function renderProductCard(product) {
   const save     = getSavePercent(product.price, product.originalPrice);
   const link     = `${getBasePath()}product.html?id=${product.id}`;
   const wishlist = JSON.parse(localStorage.getItem('bc_wishlist') || '[]');
   const isWished = wishlist.includes(product.id);
-  const badgeMap = { sale:`SAVE ${save}%`, new:'NEW', hot:'HOT 🔥' };
+  const badgeMap = { sale:`SAVE ${save}%`, new:'NEW', hot:'HOT ðŸ”¥' };
   const badgeHTML = product.badge
     ? `<span class="product-badge badge-${product.badge}">${badgeMap[product.badge]}</span>` : '';
   const colorsHTML = (product.colors || []).map((c, i) =>
@@ -89,8 +89,8 @@ function renderProductCard(product) {
         <a href="${link}"><h3>${product.name}</h3></a>
         <div class="product-rating-mini">${renderStars(product.rating)}<span>(${product.reviews})</span></div>
         <div class="product-price">
-          <span class="price-current">₹${product.price.toLocaleString('en-IN')}</span>
-          <span class="price-original">₹${product.originalPrice.toLocaleString('en-IN')}</span>
+          <span class="price-current">â‚¹${product.price.toLocaleString('en-IN')}</span>
+          <span class="price-original">â‚¹${product.originalPrice.toLocaleString('en-IN')}</span>
           <span class="price-save">Save ${save}%</span>
         </div>
         <div class="product-colors">${colorsHTML}</div>
@@ -98,7 +98,7 @@ function renderProductCard(product) {
     </div>`;
 }
 
-// ── Quick Add ──
+// â”€â”€ Quick Add â”€â”€
 function quickAddToCart(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -112,7 +112,7 @@ function showSizePicker(product) {
   modal.innerHTML = `
     <div class="size-picker-modal">
       <div class="size-picker-header">
-        <span>Select Size — ${product.name}</span>
+        <span>Select Size â€” ${product.name}</span>
         <button onclick="document.getElementById('sizePicker').remove()"><i class="fa fa-times"></i></button>
       </div>
       <div class="size-picker-options">
@@ -127,7 +127,7 @@ function showSizePicker(product) {
   document.body.appendChild(modal);
 }
 
-// ── Populate grids (tries API first, falls back to static) ──
+// â”€â”€ Populate grids (tries API first, falls back to static) â”€â”€
 async function populateGrid(gridId, filter, limit) {
   const grid = document.getElementById(gridId);
   if (!grid) return;
@@ -156,7 +156,7 @@ async function populateGrid(gridId, filter, limit) {
     }
 
     const qs  = new URLSearchParams(params).toString();
-    const res = await fetch(`http://localhost:5000/api/products?${qs}`);
+    const res = await fetch(`' + BC_API + '/products?${qs}`);
     if (res.ok) {
       const data = await res.json();
       if (data.success && data.products?.length) {
@@ -192,3 +192,5 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('trendingGrid'))    populateGrid('trendingGrid','trending',8);
   if (document.getElementById('basicsGrid'))      populateGrid('basicsGrid','basics',4);
 });
+
+

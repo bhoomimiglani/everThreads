@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: bonkerscorner
+    env: node
+    region: singapore   # closest to India
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false       # set manually in Render dashboard
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRE
+        value: 7d
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: ADMIN_EMAIL
+        value: admin@bonkerscorner.com
+      - key: ADMIN_PASSWORD
+        sync: false
+    healthCheckPath: /api/health

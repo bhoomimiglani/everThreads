@@ -1,4 +1,4 @@
-// ===== PRODUCT DETAIL PAGE =====
+﻿// ===== PRODUCT DETAIL PAGE =====
 let detailQty = 1;
 let selectedSize = '';
 let selectedColor = '';
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Try API first
   let product = null;
   try {
-    const res = await fetch(`http://localhost:5000/api/products/${id}`);
+    const res = await fetch(`' + BC_API + '/products/${id}`);
     if (res.ok) {
       const data = await res.json();
       if (data.success && data.product) {
@@ -63,8 +63,8 @@ function loadProduct(product) {
 
   // Name, price
   document.getElementById('productName').textContent = product.name;
-  document.getElementById('productPrice').textContent = `₹${product.price.toLocaleString('en-IN')}`;
-  document.getElementById('productOriginal').textContent = `₹${product.originalPrice.toLocaleString('en-IN')}`;
+  document.getElementById('productPrice').textContent = `â‚¹${product.price.toLocaleString('en-IN')}`;
+  document.getElementById('productOriginal').textContent = `â‚¹${product.originalPrice.toLocaleString('en-IN')}`;
   const save = getSavePercent(product.price, product.originalPrice);
   document.getElementById('productSave').textContent = `Save ${save}%`;
 
@@ -170,7 +170,7 @@ function toggleAccordion(btn) {
   if (!isOpen) { body.classList.add('open'); btn.classList.add('open'); }
 }
 
-// ── Fake reviews ──
+// â”€â”€ Fake reviews â”€â”€
 const fakeReviews = [
   { name:'Priya S.',    rating:5, date:'12 May 2026', text:'Absolutely love the quality! Fits perfectly and the fabric is so soft. Will definitely order again.' },
   { name:'Rahul M.',    rating:4, date:'8 May 2026',  text:'Great product, fast delivery. The color is exactly as shown. Slightly oversized but that\'s the style.' },
@@ -217,3 +217,5 @@ function renderReviews(product) {
     </div>
     <button class="btn-outline-dark" onclick="showToast('Login to write a review')">Write a Review</button>`;
 }
+
+

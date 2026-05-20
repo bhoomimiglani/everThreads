@@ -1,10 +1,10 @@
-// ===== SHOP PAGE =====
-const SHOP_API = 'http://localhost:5000/api';
+﻿// ===== SHOP PAGE =====
+const SHOP_API = BC_API;
 let allShopProducts = [];   // full list from API or static
 let filteredProducts = [];  // after filters applied
 let visibleCount = 12;
 
-// ── Init ──
+// â”€â”€ Init â”€â”€
 document.addEventListener('DOMContentLoaded', async () => {
   await fetchAllProducts();
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// ── Fetch products from API, fallback to static ──
+// â”€â”€ Fetch products from API, fallback to static â”€â”€
 async function fetchAllProducts() {
   try {
     const res = await fetch(`${SHOP_API}/products?limit=200`);
@@ -57,7 +57,7 @@ async function fetchAllProducts() {
   allShopProducts = [...products];
 }
 
-// ── Apply all filters + sort ──
+// â”€â”€ Apply all filters + sort â”€â”€
 function applyFilters() {
   const search   = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
   const maxPrice = +(document.getElementById('priceRange')?.value || 2500);
@@ -103,7 +103,7 @@ function applyFilters() {
   renderActiveFilters(search, checkedCats, maxPrice, minRating);
 }
 
-// ── Render product grid ──
+// â”€â”€ Render product grid â”€â”€
 function renderGrid() {
   const grid = document.getElementById('shopGrid');
   if (!grid) return;
@@ -131,7 +131,7 @@ function renderGrid() {
   if (lb) lb.style.display = visibleCount >= filteredProducts.length ? 'none' : 'inline-block';
 }
 
-// ── Load more ──
+// â”€â”€ Load more â”€â”€
 function loadMore() {
   visibleCount += 8;
   renderGrid();
@@ -142,7 +142,7 @@ function loadMore() {
   }
 }
 
-// ── Clear all filters ──
+// â”€â”€ Clear all filters â”€â”€
 function clearFilters() {
   document.querySelectorAll('.filter-section input[type=checkbox]').forEach(cb => {
     cb.checked = cb.value === 'all';
@@ -157,13 +157,13 @@ function clearFilters() {
   applyFilters();
 }
 
-// ── Price label ──
+// â”€â”€ Price label â”€â”€
 function updatePriceLabel(val) {
   const el = document.getElementById('priceLabel');
-  if (el) el.textContent = `₹${Number(val).toLocaleString('en-IN')}`;
+  if (el) el.textContent = `â‚¹${Number(val).toLocaleString('en-IN')}`;
 }
 
-// ── View toggle ──
+// â”€â”€ View toggle â”€â”€
 function setView(type) {
   const grid = document.getElementById('shopGrid');
   if (!grid) return;
@@ -172,21 +172,21 @@ function setView(type) {
   grid.classList.toggle('list-view', type === 'list');
 }
 
-// ── Sidebar toggle (mobile) ──
+// â”€â”€ Sidebar toggle (mobile) â”€â”€
 function toggleSidebar() {
   document.getElementById('shopSidebar')?.classList.toggle('open');
   document.getElementById('sidebarOverlay')?.classList.toggle('open');
 }
 
-// ── Active filter chips ──
+// â”€â”€ Active filter chips â”€â”€
 function renderActiveFilters(search, cats, maxPrice, minRating) {
   const container = document.getElementById('activeFilters');
   if (!container) return;
   const chips = [];
-  if (search) chips.push(`<div class="filter-chip">"${search}" <button onclick="clearSearch()">×</button></div>`);
-  cats.forEach(c => chips.push(`<div class="filter-chip">${c} <button onclick="removeFilterChip('${c}')">×</button></div>`));
-  if (maxPrice < 2500) chips.push(`<div class="filter-chip">Under ₹${maxPrice} <button onclick="resetPrice()">×</button></div>`);
-  if (minRating) chips.push(`<div class="filter-chip">★ ${minRating}+ <button onclick="resetRating()">×</button></div>`);
+  if (search) chips.push(`<div class="filter-chip">"${search}" <button onclick="clearSearch()">Ã—</button></div>`);
+  cats.forEach(c => chips.push(`<div class="filter-chip">${c} <button onclick="removeFilterChip('${c}')">Ã—</button></div>`));
+  if (maxPrice < 2500) chips.push(`<div class="filter-chip">Under â‚¹${maxPrice} <button onclick="resetPrice()">Ã—</button></div>`);
+  if (minRating) chips.push(`<div class="filter-chip">â˜… ${minRating}+ <button onclick="resetRating()">Ã—</button></div>`);
   container.innerHTML = chips.join('');
 }
 
@@ -194,3 +194,5 @@ function clearSearch()         { const si = document.getElementById('searchInput
 function resetPrice()          { const pr = document.getElementById('priceRange'); if(pr){pr.value=2500;updatePriceLabel(2500);} applyFilters(); }
 function resetRating()         { document.querySelectorAll('input[name="rating"]').forEach((r,i)=>r.checked=i===0); applyFilters(); }
 function removeFilterChip(val) { const cb=document.querySelector(`.filter-section input[value="${val}"]`); if(cb){cb.checked=false;} applyFilters(); }
+
+
