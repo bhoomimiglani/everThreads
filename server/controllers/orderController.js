@@ -3,11 +3,11 @@ const Product      = require('../models/Product');
 const InventoryLog = require('../models/Inventory');
 
 const COUPONS = {
-  'WELCOME15': { pct: 15 }, 'FIRST15': { pct: 15 },
-  'SUMMER20':  { pct: 20 }, 'WELCOME5': { pct: 5 },
+  'WELCOME15': { pct: 15 },
+  'FIRST15':   { pct: 15 },
+  'SUMMER20':  { pct: 20 },
+  'WELCOME5':  { pct: 5  },
   'FLAT10':    { pct: 10 }
-};, 'FIRST15': { pct: 15 },
-  'SUMMER20': { pct: 20 }, 'WELCOME5':{ pct: 5  }
 };
 
 // @POST /api/orders

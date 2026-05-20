@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Try API first
   let product = null;
   try {
-    const res = await fetch(`' + BC_API + '/products/${id}`);
+    const res = await fetch(`${BC_API}/products/${id}`);
     if (res.ok) {
       const data = await res.json();
       if (data.success && data.product) {
