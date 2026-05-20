@@ -1,4 +1,4 @@
-// Auto-seed — runs on startup if DB is empty (no process.exit)
+﻿// Auto-seed â€” runs on startup if DB is empty (no process.exit)
 const User         = require('./models/User');
 const Product      = require('./models/Product');
 const Order        = require('./models/Order');
@@ -32,12 +32,12 @@ module.exports = async function autoSeed() {
     const adminExists = await User.findOne({ email: process.env.ADMIN_EMAIL });
     if (!adminExists) {
       await User.create({
-        firstName: 'Admin', lastName: 'BonkersCorner',
-        email: process.env.ADMIN_EMAIL || 'admin@bonkerscorner.com',
+        firstName: 'Admin', lastName: 'EverThread',
+        email: process.env.ADMIN_EMAIL || 'admin@EverThread.com',
         password: process.env.ADMIN_PASSWORD || 'Admin@123',
         role: 'admin', phone: '+91 98765 00000'
       });
-      console.log('✅ Admin user created');
+      console.log('âœ… Admin user created');
     }
 
     // Products
@@ -52,9 +52,10 @@ module.exports = async function autoSeed() {
         description: `Premium quality ${p.name}. Made in India with the finest fabrics.`
       }))
     );
-    console.log(`✅ ${products.length} products seeded`);
-    console.log('🎉 Auto-seed complete!');
+    console.log(`âœ… ${products.length} products seeded`);
+    console.log('ðŸŽ‰ Auto-seed complete!');
   } catch (err) {
     console.error('Auto-seed error:', err.message);
   }
 };
+
