@@ -65,8 +65,26 @@ mongoose.connect(process.env.MONGO_URI, {
   serverSelectionTimeoutMS: 10000,
   socketTimeoutMS: 45000
 })
-  .then(() => {
+  .then(async () => {
     console.log('✅ MongoDB connected');
+
+    // Auto-seed in production if no products exist
+    if (process.env.NODE_ENV === 'production' || process.env.AUTO_SEED === 'true') {
+      try {
+        const Product  = require('./models/Product');
+        const autoSeed = require('./seed-auto');
+        const count    = await Product.countDocuments();
+        if (count === 0) {
+          console.log('🌱 No products found — running auto-seed...');
+          await autoSeed();
+        } else {
+          console.log(`📦 ${count} products already in database — skipping seed`);
+        }
+      } catch (e) {
+        console.error('Seed error:', e.message);
+      }
+    }
+
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
