@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account | BonkersCorner</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .account-page { padding: 48px 0 80px; min-height: 60vh; }
+    .account-layout { display: grid; grid-template-columns: 260px 1fr; gap: 32px; }
+    .account-sidebar { background: var(--white); border: 1px solid var(--border-color); padding: 24px; height: fit-content; position: sticky; top: calc(var(--header-h) + 16px); }
+    .account-avatar-wrap { text-align: center; margin-bottom: 20px; }
+    .account-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--black); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin: 0 auto 10px; }
+    .account-name { font-weight: 700; font-size: 15px; }
+    .account-email { font-size: 12px; color: var(--gray); }
+    .account-nav { margin-top: 16px; border-top: 1px solid var(--border-color); padding-top: 16px; }
+    .account-nav a { display: flex; align-items: center; gap: 10px; padding: 11px 12px; font-size: 13px; font-weight: 600; color: #444; transition: all var(--transition); margin-bottom: 2px; }
+    .account-nav a:hover, .account-nav a.active { background: var(--black); color: var(--white); }
+    .account-nav a i { width: 16px; text-align: center; }
+    .account-main { }
+    .account-section { display: none; }
+    .account-section.active { display: block; }
+    .account-section h2 { font-family: var(--font-display); font-size: 32px; letter-spacing: 2px; margin-bottom: 24px; }
+    /* Orders */
+    .order-card { background: var(--white); border: 1px solid var(--border-color); padding: 20px; margin-bottom: 12px; }
+    .order-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+    .order-id { font-size: 13px; font-weight: 700; }
+    .order-date { font-size: 12px; color: var(--gray); }
+    .order-status { padding: 4px 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+    .status-delivered { background: #d4edda; color: #155724; }
+    .status-shipped { background: #cce5ff; color: #004085; }
+    .status-processing { background: #fff3cd; color: #856404; }
+    .status-cancelled { background: #f8d7da; color: #721c24; }
+    .order-items-preview { display: flex; gap: 8px; margin-bottom: 12px; }
+    .order-item-thumb { width: 56px; height: 68px; overflow: hidden; background: var(--light-gray); }
+    .order-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .order-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f0f0f0; }
+    .order-total { font-size: 15px; font-weight: 700; }
+    .order-actions { display: flex; gap: 8px; }
+    .order-actions button { padding: 7px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; border: 1.5px solid var(--border-color); transition: all var(--transition); }
+    .order-actions button:hover { border-color: var(--black); background: var(--black); color: var(--white); }
+    .empty-state { text-align: center; padding: 60px 0; }
+    .empty-state i { font-size: 48px; color: #ddd; margin-bottom: 16px; }
+    .empty-state p { color: var(--gray); margin-bottom: 20px; }
+    /* Profile form */
+    .profile-form { max-width: 560px; }
+    .profile-form .form-group { margin-bottom: 16px; }
+    .profile-form label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; color: #555; }
+    .profile-form input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border-color); font-size: 14px; outline: none; transition: border-color var(--transition); }
+    .profile-form input:focus { border-color: var(--black); }
+    /* Addresses */
+    .address-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .address-card { border: 1.5px solid var(--border-color); padding: 16px; position: relative; }
+    .address-card.default { border-color: var(--black); }
+    .address-default-badge { position: absolute; top: 10px; right: 10px; background: var(--black); color: var(--white); font-size: 10px; font-weight: 700; padding: 2px 8px; }
+    .address-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .address-card p { font-size: 12px; color: #555; line-height: 1.6; }
+    @media (max-width: 768px) { .account-layout { grid-template-columns: 1fr; } .account-sidebar { position: static; } .address-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="announcement-bar"><div class="announcement-track"><span>ðŸ”¥ Extra 10% OFF | Use code SHARK10</span><span>ðŸ¦ˆ AS SEEN ON SHARK TANK</span><span>âš¡ FREE SHIPPING ABOVE â‚¹999</span><span>ðŸ’³ 5% OFF PREPAID</span><span>ðŸ”¥ Extra 10% OFF | Use code SHARK10</span><span>ðŸ¦ˆ AS SEEN ON SHARK TANK</span><span>âš¡ FREE SHIPPING ABOVE â‚¹999</span><span>ðŸ’³ 5% OFF PREPAID</span></div></div>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <nav class="nav" id="nav"><ul class="nav-list"><li class="nav-item"><a href="shop.html">WOMEN</a></li><li class="nav-item"><a href="shop.html">MEN</a></li><li class="nav-item"><a href="shop.html">NEW IN</a></li><li class="nav-item sale-link"><a href="shop.html">SALE ðŸ”¥</a></li></ul></nav>
+      </div>
+      <a href="../index.html" class="logo">BONKERS<span>CORNER</span></a>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div class="header-search"><input type="text" placeholder="Search products..." autocomplete="off" id="searchInput" /><button id="searchBtn" aria-label="Search"><i class="fa fa-search"></i></button></div>
+        <a href="account.html" class="icon-btn" id="accountLink" aria-label="Account"><i class="fa fa-user"></i></a><a href="../admin/index.html" class="icon-btn" id="adminNavLink" style="display:none" title="Admin Panel"><i class="fa fa-shield-alt"></i></a>
+        <a href="wishlist.html" class="icon-btn"><i class="fa fa-heart"></i></a>
+        <button class="icon-btn cart-btn" id="cartToggle"><i class="fa fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3>Your Bag <span id="cartItemCount">(0)</span></h3><button id="cartClose"><i class="fa fa-times"></i></button></div><div class="cart-body" id="cartBody"></div><div class="cart-footer" id="cartFooter" style="display:none"></div></div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <section class="account-page">
+    <div class="container">
+      <div class="account-layout">
+        <!-- Sidebar -->
+        <aside class="account-sidebar">
+          <div class="account-avatar-wrap">
+            <div class="account-avatar" id="avatarInitial">R</div>
+            <p class="account-name" id="accountName">Rahul Sharma</p>
+            <p class="account-email" id="accountEmail">rahul@example.com</p>
+          </div>
+          <nav class="account-nav">
+            <a href="#" class="active" onclick="showSection('orders',this)"><i class="fa fa-box"></i> My Orders</a>
+            <a href="#" onclick="showSection('wishlist-sec',this)"><i class="fa fa-heart"></i> Wishlist</a>
+            <a href="#" onclick="showSection('addresses',this)"><i class="fa fa-map-marker-alt"></i> Addresses</a>
+            <a href="#" onclick="showSection('profile',this)"><i class="fa fa-user-edit"></i> Profile</a>
+            <a href="#" onclick="showSection('settings',this)"><i class="fa fa-cog"></i> Settings</a>
+            <a href="#" onclick="logout()" style="color:var(--accent)"><i class="fa fa-sign-out-alt"></i> Logout</a>
+          </nav>
+        </aside>
+
+        <!-- Main -->
+        <div class="account-main">
+
+          <!-- Orders -->
+          <div class="account-section active" id="section-orders">
+            <h2>MY ORDERS</h2>
+            <div id="ordersList"></div>
+          </div>
+
+          <!-- Wishlist -->
+          <div class="account-section" id="section-wishlist-sec">
+            <h2>MY WISHLIST</h2>
+            <div class="products-grid" id="accountWishlistGrid"></div>
+          </div>
+
+          <!-- Addresses -->
+          <div class="account-section" id="section-addresses">
+            <h2>MY ADDRESSES</h2>
+            <div class="address-grid" id="addressGrid">
+              <div class="address-card default">
+                <span class="address-default-badge">DEFAULT</span>
+                <h4>Home</h4>
+                <p>Rahul Sharma<br>42, MG Road, Bandra West<br>Mumbai, Maharashtra 400050<br>+91 98765 43210</p>
+                <div style="display:flex;gap:8px;margin-top:12px;">
+                  <button style="padding:6px 12px;font-size:11px;font-weight:700;border:1.5px solid #ddd;" onclick="showToast('Edit address feature coming soon')">EDIT</button>
+                  <button style="padding:6px 12px;font-size:11px;font-weight:700;border:1.5px solid #ddd;" onclick="showToast('Address removed')">REMOVE</button>
+                </div>
+              </div>
+              <div class="address-card" style="border:1.5px dashed #ddd;display:flex;align-items:center;justify-content:center;min-height:140px;cursor:pointer;" onclick="showToast('Add new address feature coming soon')">
+                <div style="text-align:center;color:var(--gray);">
+                  <i class="fa fa-plus" style="font-size:24px;margin-bottom:8px;display:block;"></i>
+                  <span style="font-size:13px;font-weight:600;">Add New Address</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile -->
+          <div class="account-section" id="section-profile">
+            <h2>MY PROFILE</h2>
+            <form class="profile-form" onsubmit="saveProfile(event)">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group"><label>First Name</label><input type="text" id="pfFirstName" value="Rahul" /></div>
+                <div class="form-group"><label>Last Name</label><input type="text" id="pfLastName" value="Sharma" /></div>
+              </div>
+              <div class="form-group"><label>Email</label><input type="email" id="pfEmail" value="rahul@example.com" /></div>
+              <div class="form-group"><label>Phone</label><input type="tel" id="pfPhone" value="+91 98765 43210" /></div>
+              <div class="form-group"><label>Date of Birth</label><input type="date" id="pfDob" value="1998-05-15" /></div>
+              <div class="form-group"><label>Gender</label>
+                <select style="width:100%;padding:11px 14px;border:1.5px solid var(--border-color);font-size:14px;outline:none;">
+                  <option>Male</option><option>Female</option><option>Non-binary</option><option>Prefer not to say</option>
+                </select>
+              </div>
+              <button type="submit" class="btn-primary" style="margin-top:8px;">SAVE CHANGES</button>
+            </form>
+          </div>
+
+          <!-- Settings -->
+          <div class="account-section" id="section-settings">
+            <h2>SETTINGS</h2>
+            <div style="max-width:480px;">
+              <div style="border:1px solid var(--border-color);padding:20px;margin-bottom:12px;">
+                <h4 style="font-size:14px;font-weight:700;margin-bottom:8px;">Notifications</h4>
+                <label style="display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:8px;cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--black);"> Order updates via Email</label>
+                <label style="display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:8px;cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--black);"> Order updates via SMS</label>
+                <label style="display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:var(--black);"> Promotional offers</label>
+              </div>
+              <div style="border:1px solid var(--border-color);padding:20px;">
+                <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;">Change Password</h4>
+                <div class="form-group" style="margin-bottom:12px;"><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:block;">Current Password</label><input type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="width:100%;padding:11px 14px;border:1.5px solid var(--border-color);font-size:14px;outline:none;" /></div>
+                <div class="form-group" style="margin-bottom:12px;"><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:block;">New Password</label><input type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="width:100%;padding:11px 14px;border:1.5px solid var(--border-color);font-size:14px;outline:none;" /></div>
+                <button class="btn-primary" onclick="showToast('Password updated successfully!')">UPDATE PASSWORD</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast"></div>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="fa fa-arrow-up"></i></button>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/products.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    // Redirect to login if not logged in
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = Auth.currentUser();
+      if (!user) { window.location.href = 'login.html?redirect=account.html'; return; }
+
+      // Fill profile from stored user
+      document.getElementById('accountName').textContent  = user.firstName + ' ' + user.lastName;
+      document.getElementById('accountEmail').textContent = user.email;
+      document.getElementById('avatarInitial').textContent = user.firstName[0].toUpperCase();
+      document.getElementById('pfFirstName').value = user.firstName;
+      document.getElementById('pfLastName').value  = user.lastName;
+      document.getElementById('pfEmail').value     = user.email;
+      document.getElementById('pfPhone').value     = user.phone || '';
+
+      loadOrders();
+    });
+
+    function showSection(id, link) {
+      document.querySelectorAll('.account-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.account-nav a').forEach(a => a.classList.remove('active'));
+      document.getElementById('section-' + id)?.classList.add('active');
+      if (link) link.classList.add('active');
+      if (id === 'wishlist-sec') loadAccountWishlist();
+    }
+
+    async function loadOrders() {
+      const list = document.getElementById('ordersList');
+      list.innerHTML = '<p style="color:#888;font-size:13px;padding:20px 0">Loading orders...</p>';
+      const res = await OrdersAPI.getMyOrders();
+      const orders = res?.orders || [];
+      if (!orders.length) {
+        list.innerHTML = `<div class="empty-state"><i class="fa fa-box-open"></i><p>No orders yet</p><a href="shop.html" class="btn-primary">Start Shopping</a></div>`;
+        return;
+      }
+      list.innerHTML = orders.map(o => {
+        const id     = o.orderId || o.id;
+        const status = (o.status || 'Processing').toLowerCase();
+        const items  = o.items || [];
+        const amount = o.total || o.amount || 0;
+        const date   = o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : o.date;
+        return `
+          <div class="order-card">
+            <div class="order-card-header">
+              <div><span class="order-id">Order #${id}</span><span class="order-date" style="margin-left:12px">${date}</span></div>
+              <span class="order-status status-${status}">${status.replace(/_/g,' ')}</span>
+            </div>
+            <div class="order-items-preview">
+              ${items.slice(0,4).map(i => `<div class="order-item-thumb"><img src="${i.img}" alt="${i.name}" /></div>`).join('')}
+              ${items.length > 4 ? `<div class="order-item-thumb" style="display:flex;align-items:center;justify-content:center;background:#f0f0f0;font-size:12px;font-weight:700">+${items.length-4}</div>` : ''}
+            </div>
+            <div class="order-card-footer">
+              <span class="order-total">â‚¹${Number(amount).toLocaleString('en-IN')}</span>
+              <div class="order-actions">
+                <button onclick="showToast('Tracking: Your order is on the way!')"><i class="fa fa-map-marker-alt"></i> Track</button>
+                <button onclick="showToast('Invoice downloaded!')"><i class="fa fa-file-invoice"></i> Invoice</button>
+                ${['pending','confirmed','processing'].includes(status) ? `<button onclick="cancelOrder('${id}')"><i class="fa fa-times"></i> Cancel</button>` : ''}
+                ${status === 'delivered' ? `<button onclick="showToast('Return request submitted!')"><i class="fa fa-undo"></i> Return</button>` : ''}
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    async function cancelOrder(orderId) {
+      if (!confirm('Cancel this order?')) return;
+      const res = await OrdersAPI.cancel(orderId);
+      if (res?.success) { showToast('Order cancelled'); loadOrders(); }
+      else showToast(res?.message || 'Could not cancel order');
+    }
+
+    function loadAccountWishlist() {
+      const wl   = JSON.parse(localStorage.getItem('bc_wishlist') || '[]');
+      const grid = document.getElementById('accountWishlistGrid');
+      if (!wl.length) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fa fa-heart"></i><p>No items in wishlist</p><a href="shop.html" class="btn-primary">Explore Products</a></div>`;
+        return;
+      }
+      const items = products.filter(p => wl.includes(p.id));
+      grid.innerHTML = items.map(renderProductCard).join('');
+      initReveal();
+    }
+
+    async function saveProfile(e) {
+      e.preventDefault();
+      const data = {
+        firstName: document.getElementById('pfFirstName').value,
+        lastName:  document.getElementById('pfLastName').value,
+        phone:     document.getElementById('pfPhone').value,
+        dob:       document.getElementById('pfDob').value,
+      };
+      const res = await Auth.updateProfile(data);
+      if (res?.success) {
+        document.getElementById('accountName').textContent  = data.firstName + ' ' + data.lastName;
+        document.getElementById('avatarInitial').textContent = data.firstName[0].toUpperCase();
+        showToast('Profile updated âœ…');
+      } else {
+        // Offline fallback
+        const u = Auth.currentUser();
+        if (u) { u.firstName = data.firstName; u.lastName = data.lastName; localStorage.setItem('bc_user', JSON.stringify(u)); }
+        document.getElementById('accountName').textContent  = data.firstName + ' ' + data.lastName;
+        showToast('Profile updated (offline mode)');
+      }
+    }
+
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) Auth.logout();
+    }
+  </script>
+</body>
+</html>
+
+

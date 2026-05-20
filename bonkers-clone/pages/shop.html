@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop All | BonkersCorner</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/shop.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div class="announcement-bar"><div class="announcement-track"><span>🔥 Extra 10% OFF | Use code SHARK10</span><span>🦈 AS SEEN ON SHARK TANK</span><span>⚡ FREE SHIPPING ABOVE ₹999</span><span>💳 5% OFF PREPAID</span><span>🔥 Extra 10% OFF | Use code SHARK10</span><span>🦈 AS SEEN ON SHARK TANK</span><span>⚡ FREE SHIPPING ABOVE ₹999</span><span>💳 5% OFF PREPAID</span></div></div>
+
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <nav class="nav" id="nav">
+          <ul class="nav-list">
+            <li class="nav-item has-dropdown"><a href="#">WOMEN <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown"><div class="dropdown-col"><h4>Tops</h4><a href="shop.html?q=women">Crop Tees</a><a href="shop.html?q=women">Oversized Tees</a><a href="shop.html?q=women">Hoodies</a></div><div class="dropdown-col"><h4>Bottoms</h4><a href="shop.html?q=women">Joggers</a><a href="shop.html?q=women">Co-ords</a></div></div>
+            </li>
+            <li class="nav-item has-dropdown"><a href="#">MEN <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown"><div class="dropdown-col"><h4>Tops</h4><a href="shop.html?q=men">T-Shirts</a><a href="shop.html?q=men">Hoodies</a></div><div class="dropdown-col"><h4>Bottoms</h4><a href="shop.html?q=men">Joggers</a><a href="shop.html?q=men">Cargo Pants</a></div></div>
+            </li>
+            <li class="nav-item"><a href="shop.html">NEW IN</a></li>
+            <li class="nav-item sale-link"><a href="shop.html">SALE 🔥</a></li>
+          </ul>
+        </nav>
+      </div>
+      <a href="../index.html" class="logo">BONKERS<span>CORNER</span></a>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div class="header-search">
+          <input type="text" placeholder="Search products..." id="searchInput" autocomplete="off" />
+          <button id="searchBtn" onclick="applyFilters()" aria-label="Search"><i class="fa fa-search"></i></button>
+        </div>
+        <a href="account.html" class="icon-btn" aria-label="Account" id="accountLink"><i class="fa fa-user"></i></a>
+        <a href="wishlist.html" class="icon-btn"><i class="fa fa-heart"></i></a>
+        <a href="../admin/index.html" class="icon-btn" id="adminNavLink" style="display:none" title="Admin Panel"><i class="fa fa-shield-alt"></i></a>
+        <button class="icon-btn cart-btn" id="cartToggle"><i class="fa fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3>Your Bag <span id="cartItemCount">(0)</span></h3><button id="cartClose"><i class="fa fa-times"></i></button></div><div class="cart-body" id="cartBody"></div><div class="cart-footer" id="cartFooter" style="display:none"></div></div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-nav" style="padding:10px 0;border-bottom:1px solid var(--border-color);font-size:12px;color:var(--gray);">
+    <div class="container" style="display:flex;align-items:center;gap:8px;">
+      <a href="../index.html" style="color:var(--gray);">Home</a>
+      <i class="fa fa-chevron-right" style="font-size:9px;"></i>
+      <a href="shop.html" style="color:var(--gray);">Shop</a>
+      <i class="fa fa-chevron-right" style="font-size:9px;"></i>
+      <span>New Arrivals</span>
+    </div>
+  </nav>
+
+  <!-- Shop Hero -->
+  <section class="shop-hero">
+    <div class="shop-hero-bg"></div>
+    <div class="shop-hero-content">
+      <h1>NEW ARRIVALS</h1>
+      <div class="shop-hero-tags">
+        <span><i class="fa fa-tshirt"></i> All-Day Comfort Fit</span>
+        <span><i class="fa fa-star"></i> Effortless Fresh Look</span>
+        <span><i class="fa fa-ruler"></i> Easy To Style Silhouettes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop Layout -->
+  <section class="shop-layout">
+    <div class="container">
+      <div class="shop-wrapper">
+
+        <!-- Sidebar -->
+        <aside class="shop-sidebar" id="shopSidebar">
+          <div class="sidebar-header">
+            <h3>FILTERS</h3>
+            <button onclick="clearFilters()" class="clear-all-btn">Clear All</button>
+          </div>
+
+          <div class="filter-section">
+            <h4>CATEGORY</h4>
+            <label><input type="checkbox" value="all" checked onchange="applyFilters()"> All Products</label>
+            <label><input type="checkbox" value="men" onchange="applyFilters()"> Men</label>
+            <label><input type="checkbox" value="women" onchange="applyFilters()"> Women</label>
+            <label><input type="checkbox" value="unisex" onchange="applyFilters()"> Unisex</label>
+          </div>
+
+          <div class="filter-section">
+            <h4>COLLECTIONS</h4>
+            <label><input type="checkbox" value="summer" onchange="applyFilters()"> Summer Society</label>
+            <label><input type="checkbox" value="drift" onchange="applyFilters()"> Drift 2.0</label>
+            <label><input type="checkbox" value="basics" onchange="applyFilters()"> Elevated Basics</label>
+            <label><input type="checkbox" value="celebrity" onchange="applyFilters()"> Celebrity Edit</label>
+          </div>
+
+          <div class="filter-section">
+            <h4>PRICE RANGE</h4>
+            <div class="price-range-wrap">
+              <input type="range" id="priceRange" min="0" max="2500" value="2500" step="50"
+                oninput="updatePriceLabel(this.value)" onchange="applyFilters()" />
+              <div class="price-labels">
+                <span>₹0</span>
+                <span id="priceLabel">₹2,500</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>RATING</h4>
+            <label><input type="radio" name="rating" value="0" checked onchange="applyFilters()"> All Ratings</label>
+            <label><input type="radio" name="rating" value="4.5" onchange="applyFilters()"> ★ 4.5 & above</label>
+            <label><input type="radio" name="rating" value="4" onchange="applyFilters()"> ★ 4.0 & above</label>
+          </div>
+
+          <div class="filter-section">
+            <h4>AVAILABILITY</h4>
+            <label><input type="checkbox" id="inStockOnly" onchange="applyFilters()"> In Stock Only</label>
+          </div>
+        </aside>
+
+        <!-- Sidebar overlay for mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Products -->
+        <div class="shop-main">
+          <div class="shop-toolbar">
+            <button class="filter-sort-btn" onclick="toggleSidebar()">
+              <i class="fa fa-sliders-h"></i> FILTER AND SORT
+            </button>
+            <div class="toolbar-right">
+              <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+                <option value="default">FEATURED</option>
+                <option value="newest">NEWEST FIRST</option>
+                <option value="price-low">PRICE: LOW TO HIGH</option>
+                <option value="price-high">PRICE: HIGH TO LOW</option>
+                <option value="discount">BIGGEST DISCOUNT</option>
+                <option value="rating">TOP RATED</option>
+              </select>
+              <span class="results-count" id="resultsCount">20 PRODUCTS</span>
+              <div class="view-toggle">
+                <button class="view-btn active" id="gridView" onclick="setView('grid')" title="Grid view"><i class="fa fa-th"></i></button>
+                <button class="view-btn" id="listView" onclick="setView('list')" title="List view"><i class="fa fa-list"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active filters display -->
+          <div class="active-filters" id="activeFilters"></div>
+
+          <div class="products-grid" id="shopGrid"></div>
+
+          <div class="load-more-wrap">
+            <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()" style="display:none;">
+              LOAD MORE <i class="fa fa-arrow-down"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast"></div>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="fa fa-arrow-up"></i></button>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/products.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/shop.js"></script>
+</body>
+</html>

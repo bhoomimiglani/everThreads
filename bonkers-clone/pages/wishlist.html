@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wishlist | BonkersCorner</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div class="announcement-bar"><div class="announcement-track"><span>ðŸ”¥ Extra 10% OFF | Use code SHARK10</span><span>ðŸ¦ˆ AS SEEN ON SHARK TANK</span><span>âš¡ FREE SHIPPING ABOVE â‚¹999</span><span>ðŸ’³ 5% OFF PREPAID</span><span>ðŸ”¥ Extra 10% OFF | Use code SHARK10</span><span>ðŸ¦ˆ AS SEEN ON SHARK TANK</span><span>âš¡ FREE SHIPPING ABOVE â‚¹999</span><span>ðŸ’³ 5% OFF PREPAID</span></div></div>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <nav class="nav" id="nav"><ul class="nav-list"><li class="nav-item"><a href="shop.html">WOMEN</a></li><li class="nav-item"><a href="shop.html">MEN</a></li><li class="nav-item"><a href="shop.html">NEW IN</a></li><li class="nav-item sale-link"><a href="shop.html">SALE ðŸ”¥</a></li></ul></nav>
+      </div>
+      <a href="../index.html" class="logo">BONKERS<span>CORNER</span></a>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div class="header-search"><input type="text" placeholder="Search products..." autocomplete="off" id="searchInput" /><button id="searchBtn" aria-label="Search"><i class="fa fa-search"></i></button></div>
+        <a href="account.html" class="icon-btn" id="accountLink" aria-label="Account"><i class="fa fa-user"></i></a><a href="../admin/index.html" class="icon-btn" id="adminNavLink" style="display:none" title="Admin Panel"><i class="fa fa-shield-alt"></i></a>
+        <a href="wishlist.html" class="icon-btn"><i class="fa fa-heart"></i></a>
+        <button class="icon-btn cart-btn" id="cartToggle"><i class="fa fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3>Your Bag <span id="cartItemCount">(0)</span></h3><button id="cartClose"><i class="fa fa-times"></i></button></div><div class="cart-body" id="cartBody"></div><div class="cart-footer" id="cartFooter" style="display:none"></div></div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <section style="padding:48px 0 80px;">
+    <div class="container">
+      <div class="section-header" style="margin-bottom:32px;">
+        <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,48px);letter-spacing:2px;">MY WISHLIST</h2>
+        <span id="wishlistCount" style="font-size:13px;color:var(--gray);"></span>
+        <button onclick="addAllToCart()" class="btn-primary" id="addAllBtn" style="display:none;">
+          <i class="fa fa-shopping-bag"></i> ADD ALL TO BAG
+        </button>
+      </div>
+      <div class="products-grid" id="wishlistGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:80px 0;">
+          <i class="fa fa-heart" style="font-size:48px;color:#ddd;margin-bottom:16px;display:block;"></i>
+          <p style="color:var(--gray);margin-bottom:20px;">Your wishlist is empty</p>
+          <a href="shop.html" class="btn-primary">Explore Products</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast"></div>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="fa fa-arrow-up"></i></button>
+
+  <script src="../js/api.js"></script><script src="../js/products.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const wl   = JSON.parse(localStorage.getItem('bc_wishlist') || '[]');
+      const grid = document.getElementById('wishlistGrid');
+      const countEl = document.getElementById('wishlistCount');
+      const addAllBtn = document.getElementById('addAllBtn');
+
+      if (!wl.length) return;
+
+      const items = products.filter(p => wl.includes(p.id));
+      countEl.textContent = `${items.length} item${items.length > 1 ? 's' : ''} saved`;
+      addAllBtn.style.display = 'inline-flex';
+      grid.innerHTML = items.map(renderProductCard).join('');
+      initReveal();
+    });
+
+    function addAllToCart() {
+      const wl = JSON.parse(localStorage.getItem('bc_wishlist') || '[]');
+      wl.forEach(id => addToCart(id, 'M', 1));
+      showToast(`${wl.length} items added to bag ðŸ›ï¸`);
+    }
+  </script>
+</body>
+</html>
+
+
+

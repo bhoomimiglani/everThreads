@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Sign Up | BonkersCorner</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body { background: #f7f7f7; }
+    .auth-page { min-height: 100vh; display: flex; flex-direction: column; }
+    .auth-header { background: var(--white); border-bottom: 1px solid var(--border-color); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: center; }
+    .auth-body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .auth-card { background: var(--white); border: 1px solid var(--border-color); width: 100%; max-width: 440px; padding: 40px; }
+    .auth-tabs { display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 28px; }
+    .auth-tab { flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; color: var(--gray); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all var(--transition); }
+    .auth-tab.active { color: var(--black); border-bottom-color: var(--black); }
+    .auth-form { display: none; }
+    .auth-form.active { display: block; }
+    .auth-form h2 { font-family: var(--font-display); font-size: 28px; letter-spacing: 2px; margin-bottom: 6px; }
+    .auth-form p.sub { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; color: #555; }
+    .form-group .input-wrap { position: relative; }
+    .form-group input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-color); font-size: 14px; outline: none; transition: border-color var(--transition); font-family: inherit; }
+    .form-group input:focus { border-color: var(--black); }
+    .form-group input.error { border-color: var(--accent); }
+    .form-group .toggle-pw { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--gray); cursor: pointer; font-size: 14px; }
+    .field-err { font-size: 11px; color: var(--accent); margin-top: 4px; min-height: 14px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .auth-btn { width: 100%; padding: 14px; background: var(--black); color: var(--white); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: 2px solid var(--black); transition: all var(--transition); margin-top: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .auth-btn:hover { background: transparent; color: var(--black); }
+    .auth-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--gray); font-size: 12px; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
+    .social-auth { display: flex; gap: 10px; }
+    .social-btn { flex: 1; padding: 11px; border: 1.5px solid var(--border-color); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all var(--transition); background: var(--white); }
+    .social-btn:hover { border-color: var(--black); background: #f9f9f9; }
+    .forgot-link { font-size: 12px; color: var(--gray); text-decoration: underline; cursor: pointer; float: right; margin-top: -10px; margin-bottom: 16px; }
+    .forgot-link:hover { color: var(--black); }
+    .terms-note { font-size: 11px; color: var(--gray); text-align: center; margin-top: 14px; line-height: 1.6; }
+    .terms-note a { color: var(--black); text-decoration: underline; }
+    .strength-bar { height: 4px; background: #eee; margin-top: 6px; border-radius: 2px; overflow: hidden; }
+    .strength-fill { height: 100%; width: 0; transition: width 0.3s, background 0.3s; border-radius: 2px; }
+    .strength-text { font-size: 10px; color: var(--gray); margin-top: 3px; }
+    @media (max-width: 480px) { .auth-card { padding: 24px 16px; } .form-row-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="auth-page">
+  <header class="auth-header">
+    <a href="../index.html" class="logo">BONKERS<span>CORNER</span></a>
+  </header>
+
+  <div class="auth-body">
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <div class="auth-tab active" onclick="switchTab('login')">LOGIN</div>
+        <div class="auth-tab" onclick="switchTab('signup')">SIGN UP</div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div class="auth-form active" id="loginForm">
+        <h2>WELCOME BACK</h2>
+        <p class="sub">Sign in to your BonkersCorner account</p>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" />
+          <div class="field-err" id="loginEmailErr"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <input type="password" id="loginPassword" placeholder="••••••••" />
+            <span class="toggle-pw" onclick="togglePw('loginPassword',this)"><i class="fa fa-eye"></i></span>
+          </div>
+          <div class="field-err" id="loginPasswordErr"></div>
+        </div>
+        <span class="forgot-link" onclick="showForgot()">Forgot password?</span>
+        <button class="auth-btn" id="loginBtn" onclick="doLogin()">
+          <i class="fa fa-sign-in-alt"></i> SIGN IN
+        </button>
+        <div class="divider">or continue with</div>
+        <div class="social-auth">
+          <button class="social-btn" onclick="showToast('Google login coming soon')"><i class="fab fa-google" style="color:#ea4335"></i> Google</button>
+          <button class="social-btn" onclick="showToast('Facebook login coming soon')"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook</button>
+        </div>
+        <p class="terms-note">By signing in you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></p>
+      </div>
+
+      <!-- SIGNUP FORM -->
+      <div class="auth-form" id="signupForm">
+        <h2>JOIN THE CLUB</h2>
+        <p class="sub">Create your BonkersCorner account</p>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="regFirst" placeholder="Rahul" />
+            <div class="field-err" id="regFirstErr"></div>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="regLast" placeholder="Sharma" />
+            <div class="field-err" id="regLastErr"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="regEmail" placeholder="you@example.com" />
+          <div class="field-err" id="regEmailErr"></div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="regPhone" placeholder="+91 98765 43210" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <input type="password" id="regPassword" placeholder="Min. 6 characters" oninput="checkStrength(this.value)" />
+            <span class="toggle-pw" onclick="togglePw('regPassword',this)"><i class="fa fa-eye"></i></span>
+          </div>
+          <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+          <div class="strength-text" id="strengthText"></div>
+          <div class="field-err" id="regPasswordErr"></div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="regConfirm" placeholder="Re-enter password" />
+          <div class="field-err" id="regConfirmErr"></div>
+        </div>
+        <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#555;margin-bottom:16px;cursor:pointer;">
+          <input type="checkbox" id="regTerms" style="accent-color:var(--black);margin-top:2px;" />
+          I agree to the <a href="#" style="color:var(--black);text-decoration:underline;margin:0 3px;">Terms & Conditions</a> and <a href="#" style="color:var(--black);text-decoration:underline;margin:0 3px;">Privacy Policy</a>
+        </label>
+        <button class="auth-btn" id="signupBtn" onclick="doSignup()">
+          <i class="fa fa-user-plus"></i> CREATE ACCOUNT
+        </button>
+        <p class="terms-note" style="margin-top:12px;">Already have an account? <span onclick="switchTab('login')" style="color:var(--black);font-weight:700;cursor:pointer;text-decoration:underline;">Sign In</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="../js/api.js"></script>
+<script>
+  // Redirect if already logged in
+  if (Auth.isLoggedIn()) {
+    const redir = new URLSearchParams(window.location.search).get('redirect') || '../index.html';
+    window.location.href = redir;
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='signup')));
+    document.getElementById('loginForm').classList.toggle('active', tab==='login');
+    document.getElementById('signupForm').classList.toggle('active', tab==='signup');
+  }
+
+  function togglePw(id, icon) {
+    const inp = document.getElementById(id);
+    const show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password';
+    icon.innerHTML = show ? '<i class="fa fa-eye-slash"></i>' : '<i class="fa fa-eye"></i>';
+  }
+
+  function checkStrength(pw) {
+    const fill = document.getElementById('strengthFill');
+    const text = document.getElementById('strengthText');
+    let score = 0;
+    if (pw.length >= 6)  score++;
+    if (pw.length >= 10) score++;
+    if (/[A-Z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    const levels = [
+      { w:'0%',   bg:'#eee',    t:'' },
+      { w:'25%',  bg:'#e63946', t:'Weak' },
+      { w:'50%',  bg:'#f4a261', t:'Fair' },
+      { w:'75%',  bg:'#2d6a4f', t:'Good' },
+      { w:'100%', bg:'#1a7a4a', t:'Strong' }
+    ];
+    const l = levels[Math.min(score, 4)];
+    fill.style.width = l.w; fill.style.background = l.bg;
+    text.textContent = l.t; text.style.color = l.bg;
+  }
+
+  function showForgot() {
+    showToast('Password reset email sent! (demo)');
+  }
+
+  function setErr(id, msg) { document.getElementById(id).textContent = msg; }
+  function clearErrs(...ids) { ids.forEach(id => { const el = document.getElementById(id); if(el) el.textContent=''; }); }
+
+  async function doLogin() {
+    clearErrs('loginEmailErr','loginPasswordErr');
+    const email = document.getElementById('loginEmail').value.trim();
+    const pw    = document.getElementById('loginPassword').value;
+    let ok = true;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr('loginEmailErr','Enter a valid email'); ok=false; }
+    if (!pw) { setErr('loginPasswordErr','Password required'); ok=false; }
+    if (!ok) return;
+
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true; btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Signing in...';
+
+    try {
+      const res = await Auth.login(email, pw);
+      if (res) {
+        showToast(`Welcome back, ${res.user.firstName}! 👋`);
+        setTimeout(() => {
+          const redir = new URLSearchParams(window.location.search).get('redirect') || '../index.html';
+          window.location.href = redir;
+        }, 800);
+      } else {
+        // Backend offline — demo login
+        const demoUser = { id:'demo', firstName:'Demo', lastName:'User', email, role:'user', wishlist:[] };
+        localStorage.setItem('bc_token','demo_token');
+        setUser(demoUser);
+        showToast('Demo mode: logged in locally');
+        setTimeout(() => window.location.href = '../index.html', 800);
+      }
+    } catch (err) {
+      setErr('loginPasswordErr', err.message);
+      btn.disabled = false; btn.innerHTML = '<i class="fa fa-sign-in-alt"></i> SIGN IN';
+    }
+  }
+
+  async function doSignup() {
+    clearErrs('regFirstErr','regLastErr','regEmailErr','regPasswordErr','regConfirmErr');
+    const first = document.getElementById('regFirst').value.trim();
+    const last  = document.getElementById('regLast').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const pw    = document.getElementById('regPassword').value;
+    const conf  = document.getElementById('regConfirm').value;
+    const terms = document.getElementById('regTerms').checked;
+    let ok = true;
+    if (!first) { setErr('regFirstErr','First name required'); ok=false; }
+    if (!last)  { setErr('regLastErr','Last name required'); ok=false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr('regEmailErr','Valid email required'); ok=false; }
+    if (!pw || pw.length < 6) { setErr('regPasswordErr','Min 6 characters'); ok=false; }
+    if (pw !== conf) { setErr('regConfirmErr','Passwords do not match'); ok=false; }
+    if (!terms) { showToast('Please accept Terms & Conditions'); ok=false; }
+    if (!ok) return;
+
+    const btn = document.getElementById('signupBtn');
+    btn.disabled = true; btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Creating account...';
+
+    try {
+      const res = await Auth.register({ firstName:first, lastName:last, email, password:pw, phone });
+      if (res) {
+        showToast(`Account created! Welcome, ${res.user.firstName}! 🎉`);
+        setTimeout(() => window.location.href = '../index.html', 800);
+      } else {
+        // Backend offline — demo register
+        const demoUser = { id:'demo', firstName:first, lastName:last, email, role:'user', wishlist:[] };
+        localStorage.setItem('bc_token','demo_token');
+        setUser(demoUser);
+        showToast('Demo mode: account created locally');
+        setTimeout(() => window.location.href = '../index.html', 800);
+      }
+    } catch (err) {
+      setErr('regEmailErr', err.message);
+      btn.disabled = false; btn.innerHTML = '<i class="fa fa-user-plus"></i> CREATE ACCOUNT';
+    }
+  }
+
+  // Allow Enter key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      if (document.getElementById('loginForm').classList.contains('active')) doLogin();
+      else doSignup();
+    }
+  });
+
+  function showToast(msg) {
+    let t = document.getElementById('toast');
+    t.textContent = msg; t.className = 'toast show';
+    clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>

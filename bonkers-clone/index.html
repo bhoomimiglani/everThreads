@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreetDrop | Unisex Luxury Streetwear</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-track">
+      <span>🔥 Extra 10% OFF | Use code SHARK10 | Min. cart ₹500</span>
+      <span>🦈 AS SEEN ON SHARK TANK</span>
+      <span>🔥 Extra 10% OFF | Use code SHARK10 | Min. cart ₹500</span>
+      <span>🦈 AS SEEN ON SHARK TANK</span>
+      <span>⚡ FREE SHIPPING ON ORDERS ABOVE ₹999</span>
+      <span>💳 5% OFF ON PREPAID ORDERS</span>
+      <span>🚚 SHIPS WITHIN 48 HOURS</span>
+      <span>🔥 Extra 10% OFF | Use code SHARK10 | Min. cart ₹500</span>
+      <span>🦈 AS SEEN ON SHARK TANK</span>
+      <span>⚡ FREE SHIPPING ON ORDERS ABOVE ₹999</span>
+      <span>💳 5% OFF ON PREPAID ORDERS</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+
+      <!-- Left: Hamburger + Nav -->
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav" id="nav">
+          <ul class="nav-list">
+            <li class="nav-item has-dropdown">
+              <a href="#">WOMEN <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown">
+                <div class="dropdown-col">
+                  <h4>Tops</h4>
+                  <a href="pages/shop.html">Crop Tees</a>
+                  <a href="pages/shop.html">Oversized Tees</a>
+                  <a href="pages/shop.html">Hoodies</a>
+                  <a href="pages/shop.html">Sweatshirts</a>
+                </div>
+                <div class="dropdown-col">
+                  <h4>Bottoms</h4>
+                  <a href="pages/shop.html">Joggers</a>
+                  <a href="pages/shop.html">Shorts</a>
+                  <a href="pages/shop.html">Co-ords</a>
+                </div>
+                <div class="dropdown-col">
+                  <h4>Collections</h4>
+                  <a href="pages/shop.html">Summer Society</a>
+                  <a href="pages/shop.html">Elevated Basics</a>
+                  <a href="pages/shop.html">New Arrivals</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item has-dropdown">
+              <a href="#">MEN <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown">
+                <div class="dropdown-col">
+                  <h4>Tops</h4>
+                  <a href="pages/shop.html">T-Shirts</a>
+                  <a href="pages/shop.html">Oversized Tees</a>
+                  <a href="pages/shop.html">Hoodies</a>
+                  <a href="pages/shop.html">Sweatshirts</a>
+                </div>
+                <div class="dropdown-col">
+                  <h4>Bottoms</h4>
+                  <a href="pages/shop.html">Joggers</a>
+                  <a href="pages/shop.html">Shorts</a>
+                  <a href="pages/shop.html">Cargo Pants</a>
+                </div>
+                <div class="dropdown-col">
+                  <h4>Collections</h4>
+                  <a href="pages/shop.html">Drift 2.0</a>
+                  <a href="pages/shop.html">Elevated Basics</a>
+                  <a href="pages/shop.html">New Arrivals</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item has-dropdown">
+              <a href="#">ACCESSORIES <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown">
+                <div class="dropdown-col">
+                  <h4>Accessories</h4>
+                  <a href="pages/shop.html">Caps</a>
+                  <a href="pages/shop.html">Bags</a>
+                  <a href="pages/shop.html">Socks</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="logo">BONKERS<span>CORNER</span></a>
+
+      <!-- Right: Search + Icons -->
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div class="header-search">
+          <input type="text" placeholder="Search products..." id="searchInput" autocomplete="off" />
+          <button id="searchBtn" aria-label="Search"><i class="fa fa-search"></i></button>
+        </div>
+        <a href="pages/account.html" class="icon-btn" aria-label="Account" id="accountLink"><i class="fa fa-user"></i></a>
+        <a href="pages/wishlist.html" class="icon-btn" aria-label="Wishlist"><i class="fa fa-heart"></i></a>
+        <a href="admin/index.html" class="icon-btn" id="adminNavLink" aria-label="Admin" style="display:none" title="Admin Panel"><i class="fa fa-shield-alt"></i></a>
+        <button class="icon-btn cart-btn" id="cartToggle" aria-label="Cart">
+          <i class="fa fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Your Bag <span id="cartItemCount">(0)</span></h3>
+      <button id="cartClose"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty">
+        <i class="fa fa-shopping-bag"></i>
+        <p>Your bag is empty</p>
+        <a href="pages/shop.html" class="btn-primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Subtotal</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <a href="pages/checkout.html" class="btn-primary full-width">Proceed to Checkout</a>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- ===== HERO SLIDER ===== -->
+  <section class="hero-slider" id="heroSlider">
+
+    <div class="slide active">
+      <div class="slide-bg slide-bg-1"></div>
+      <div class="slide-content">
+        <p class="slide-tag">NEW COLLECTION</p>
+        <h1>SUMMER'S HOT,<br>SO IS OUR<br>COLLECTION</h1>
+        <p class="slide-sub">Unisex luxury streetwear crafted for the bold</p>
+        <div class="slide-btns">
+          <a href="pages/shop.html" class="btn-primary">SHOP SUMMER SOCIETY</a>
+          <a href="pages/shop.html" class="btn-outline">EXPLORE ALL</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-bg slide-bg-2"></div>
+      <div class="slide-content">
+        <p class="slide-tag">CELEBRITY PICKS</p>
+        <h1>ANUSHKA SEN'S<br>CURATED<br>STAPLES</h1>
+        <p class="slide-sub">Handpicked summer essentials by Anushka Sen</p>
+        <div class="slide-btns">
+          <a href="pages/shop.html" class="btn-primary">SHOP THE EDIT</a>
+          <a href="pages/shop.html" class="btn-outline">VIEW LOOKBOOK</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-bg slide-bg-3"></div>
+      <div class="slide-content">
+        <p class="slide-tag">FOR THE RACER IN YOU</p>
+        <h1>DRIFT<br>2.0<br>IS HERE</h1>
+        <p class="slide-sub">Speed-inspired streetwear for the fearless</p>
+        <div class="slide-btns">
+          <a href="pages/shop.html" class="btn-primary">SHOP DRIFT 2.0</a>
+          <a href="pages/shop.html" class="btn-outline">SEE THE STORY</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="slider-prev" id="sliderPrev"><i class="fa fa-chevron-left"></i></button>
+    <button class="slider-next" id="sliderNext"><i class="fa fa-chevron-right"></i></button>
+    <div class="slider-dots" id="sliderDots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES STRIP (below hero like Bonkers) ===== -->
+  <section class="features-strip">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa fa-tshirt"></i></div>
+          <div class="feature-text">
+            <h4>All-Day Comfort Fit</h4>
+            <p>Designed for all-day wear</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa fa-star"></i></div>
+          <div class="feature-text">
+            <h4>Effortless Fresh Look</h4>
+            <p>Style that speaks for itself</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa fa-ruler"></i></div>
+          <div class="feature-text">
+            <h4>Easy To Style Silhouettes</h4>
+            <p>Versatile fits for every occasion</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa fa-shipping-fast"></i></div>
+          <div class="feature-text">
+            <h4>Ships In 48 Hours</h4>
+            <p>Fast dispatch, every order</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEW ARRIVALS (main shop grid like screenshot) ===== -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>New Arrivals</h2>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="men">Men</button>
+          <button class="filter-tab" data-filter="women">Women</button>
+          <button class="filter-tab" data-filter="unisex">Unisex</button>
+        </div>
+        <a href="pages/shop.html" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="newArrivalsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE STRIP ===== -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>STREETWEAR</span><span>•</span>
+      <span>LUXURY BASICS</span><span>•</span>
+      <span>MADE IN INDIA</span><span>•</span>
+      <span>SUMMER SOCIETY</span><span>•</span>
+      <span>DRIFT 2.0</span><span>•</span>
+      <span>ELEVATED BASICS</span><span>•</span>
+      <span>AS SEEN ON SHARK TANK</span><span>•</span>
+      <span>STREETWEAR</span><span>•</span>
+      <span>LUXURY BASICS</span><span>•</span>
+      <span>MADE IN INDIA</span><span>•</span>
+      <span>SUMMER SOCIETY</span><span>•</span>
+      <span>DRIFT 2.0</span><span>•</span>
+      <span>ELEVATED BASICS</span><span>•</span>
+      <span>AS SEEN ON SHARK TANK</span><span>•</span>
+    </div>
+  </div>
+
+  <!-- ===== FEATURED COLLECTIONS BANNER ===== -->
+  <section class="featured-collections">
+    <div class="container">
+      <div class="section-header">
+        <h2>EXPLORE COLLECTIONS</h2>
+        <a href="pages/shop.html" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="collection-banners">
+        <div class="col-banner large">
+          <div class="col-banner-inner" style="background:linear-gradient(160deg,#0d0d0d,#2d1b69)">
+            <div class="col-banner-text">
+              <span class="col-tag">HOT DROP</span>
+              <h3>SUMMER SOCIETY</h3>
+              <p>The season's most wanted pieces</p>
+              <a href="pages/shop.html" class="btn-white">SHOP NOW</a>
+            </div>
+            <div class="col-banner-graphic"><div class="graphic-circle purple"></div><span class="graphic-label">SS26</span></div>
+          </div>
+        </div>
+        <div class="col-banner-stack">
+          <div class="col-banner small">
+            <div class="col-banner-inner" style="background:linear-gradient(160deg,#1a0a00,#8b4513)">
+              <div class="col-banner-text">
+                <span class="col-tag">CELEBRITY EDIT</span>
+                <h3>ANUSHKA'S PICKS</h3>
+                <a href="pages/shop.html" class="btn-white">EXPLORE</a>
+              </div>
+              <div class="col-banner-graphic"><div class="graphic-circle orange"></div></div>
+            </div>
+          </div>
+          <div class="col-banner small">
+            <div class="col-banner-inner" style="background:linear-gradient(160deg,#000814,#003566)">
+              <div class="col-banner-text">
+                <span class="col-tag">NEW COLLECTION</span>
+                <h3>DRIFT 2.0</h3>
+                <a href="pages/shop.html" class="btn-white">EXPLORE</a>
+              </div>
+              <div class="col-banner-graphic"><div class="graphic-circle blue"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRENDING PRODUCTS ===== -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Trending Now</h2>
+        <a href="pages/shop.html" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="trendingGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== ELEVATED BASICS ===== -->
+  <section class="products-section" style="background:#f7f7f7;">
+    <div class="container">
+      <div class="section-header">
+        <h2>Elevated Basics</h2>
+        <p class="section-sub">Essentials Worth Repeating</p>
+        <a href="pages/shop.html" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="basicsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header centered">
+        <h2>What Customers Say</h2>
+        <p>Real reviews from real customers</p>
+      </div>
+      <div class="testimonials-slider" id="testimonialsSlider">
+        <div class="testimonial-card active">
+          <div class="stars">★★★★★</div>
+          <p>"It was so much more worthy than buying a ₹1400 t-shirt from H&M or Zara. The quality was better and the aesthetic was on point!"</p>
+          <div class="reviewer"><div class="reviewer-avatar">S</div><div><strong>Saumya Raj</strong><span>Verified Buyer</span></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The quality is premium and I bought XS and it fits me best. I've been dying to get a Billie Eilish tee in India — you can surely go for this one!"</p>
+          <div class="reviewer"><div class="reviewer-avatar">A</div><div><strong>Ansh Jadli</strong><span>Verified Buyer</span></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Change your name to quality.com — I swear I lovedddddddd the quality so so so much. Thanks BonkersCorner!"</p>
+          <div class="reviewer"><div class="reviewer-avatar">R</div><div><strong>Riya Sharma</strong><span>Verified Buyer</span></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The packaging was eco-friendly, no plastic, and the tag on the tee had a quote too. Absolutely loved the whole experience!"</p>
+          <div class="reviewer"><div class="reviewer-avatar">K</div><div><strong>Karan Mehta</strong><span>Verified Buyer</span></div></div>
+        </div>
+      </div>
+      <div class="testimonial-dots" id="testimonialDots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSTAGRAM ===== -->
+  <section class="instagram-strip">
+    <div class="container">
+      <div class="section-header centered">
+        <h2>@BONKERSCORNER</h2>
+        <p>Tag us to get featured</p>
+      </div>
+      <div class="insta-grid">
+        <div class="insta-item"><div class="insta-placeholder" style="background:linear-gradient(135deg,#2c3e50,#4a6741)"><i class="fab fa-instagram"></i></div></div>
+        <div class="insta-item"><div class="insta-placeholder" style="background:linear-gradient(135deg,#1a0a00,#3d1a00)"><i class="fab fa-instagram"></i></div></div>
+        <div class="insta-item"><div class="insta-placeholder" style="background:linear-gradient(135deg,#000814,#001d3d)"><i class="fab fa-instagram"></i></div></div>
+        <div class="insta-item"><div class="insta-placeholder" style="background:linear-gradient(135deg,#0d0d0d,#2d1b69)"><i class="fab fa-instagram"></i></div></div>
+        <div class="insta-item"><div class="insta-placeholder" style="background:linear-gradient(135deg,#2d1b00,#5c3d11)"><i class="fab fa-instagram"></i></div></div>
+        <div class="insta-item"><div class="insta-placeholder" style="background:linear-gradient(135deg,#0a1628,#1a3a5c)"><i class="fab fa-instagram"></i></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <h2>JOIN THE CLUB</h2>
+          <p>Get early access to drops, exclusive deals & style inspo</p>
+        </div>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="Enter your email address" required />
+          <button type="submit" class="btn-primary">SUBSCRIBE</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo footer-logo">BONKERS<span>CORNER</span></a>
+          <p>Unisex luxury streetwear crafted for the bold. Made in India, worn worldwide.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>SHOP</h4>
+          <ul>
+            <li><a href="pages/shop.html">Men</a></li>
+            <li><a href="pages/shop.html">Women</a></li>
+            <li><a href="pages/shop.html">New In</a></li>
+            <li><a href="pages/shop.html">Collections</a></li>
+            <li><a href="pages/shop.html">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>HELP</h4>
+          <ul>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns & Exchange</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>COMPANY</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 BonkersCorner Clone. All rights reserved. Made with ❤️ in India.</p>
+        <div class="payment-icons">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-google-pay"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="fa fa-arrow-up"></i></button>
+
+  <script src="js/api.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

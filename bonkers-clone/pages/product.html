@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product | BonkersCorner</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/product.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <div class="announcement-bar">
+    <div class="announcement-track">
+      <span>ðŸ”¥ Extra 10% OFF | Use code SHARK10</span><span>ðŸ¦ˆ AS SEEN ON SHARK TANK</span>
+      <span>âš¡ FREE SHIPPING ABOVE â‚¹999</span><span>ðŸ’³ 5% OFF PREPAID</span>
+      <span>ðŸ”¥ Extra 10% OFF | Use code SHARK10</span><span>ðŸ¦ˆ AS SEEN ON SHARK TANK</span>
+      <span>âš¡ FREE SHIPPING ABOVE â‚¹999</span><span>ðŸ’³ 5% OFF PREPAID</span>
+    </div>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <nav class="nav" id="nav">
+          <ul class="nav-list">
+            <li class="nav-item has-dropdown"><a href="#">WOMEN <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown"><div class="dropdown-col"><h4>Tops</h4><a href="shop.html">Crop Tees</a><a href="shop.html">Oversized Tees</a><a href="shop.html">Hoodies</a></div><div class="dropdown-col"><h4>Bottoms</h4><a href="shop.html">Joggers</a><a href="shop.html">Co-ords</a></div></div>
+            </li>
+            <li class="nav-item has-dropdown"><a href="#">MEN <i class="fa fa-chevron-down"></i></a>
+              <div class="dropdown"><div class="dropdown-col"><h4>Tops</h4><a href="shop.html">T-Shirts</a><a href="shop.html">Hoodies</a></div><div class="dropdown-col"><h4>Bottoms</h4><a href="shop.html">Joggers</a><a href="shop.html">Cargo Pants</a></div></div>
+            </li>
+            <li class="nav-item"><a href="shop.html">NEW IN</a></li>
+            <li class="nav-item sale-link"><a href="shop.html">SALE ðŸ”¥</a></li>
+          </ul>
+        </nav>
+      </div>
+      <a href="../index.html" class="logo">BONKERS<span>CORNER</span></a>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div class="header-search">
+          <input type="text" placeholder="Search products..." autocomplete="off" id="searchInput" />
+          <button id="searchBtn" aria-label="Search"><i class="fa fa-search"></i></button>
+        </div>
+        <a href="account.html" class="icon-btn" id="accountLink" aria-label="Account"><i class="fa fa-user"></i></a><a href="../admin/index.html" class="icon-btn" id="adminNavLink" style="display:none" title="Admin Panel"><i class="fa fa-shield-alt"></i></a>
+        <a href="wishlist.html" class="icon-btn"><i class="fa fa-heart"></i></a>
+        <button class="icon-btn cart-btn" id="cartToggle">
+          <i class="fa fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header"><h3>Your Bag <span id="cartItemCount">(0)</span></h3><button id="cartClose"><i class="fa fa-times"></i></button></div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none"></div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-nav">
+    <div class="container">
+      <a href="../index.html">Home</a>
+      <i class="fa fa-chevron-right"></i>
+      <a href="shop.html">Shop</a>
+      <i class="fa fa-chevron-right"></i>
+      <span id="breadcrumbName">Product</span>
+    </div>
+  </nav>
+
+  <!-- Product Detail -->
+  <section class="product-detail-section">
+    <div class="container">
+      <div class="product-detail-grid">
+
+        <!-- Left: Images -->
+        <div class="product-images-col">
+          <div class="main-image-wrap">
+            <img id="mainProductImg" src="" alt="Product" />
+            <button class="wishlist-fab" id="wishlistBtn" aria-label="Wishlist">
+              <i class="fa fa-heart"></i>
+            </button>
+            <div class="zoom-hint"><i class="fa fa-search-plus"></i></div>
+          </div>
+          <div class="thumb-row" id="thumbRow"></div>
+        </div>
+
+        <!-- Right: Info -->
+        <div class="product-info-col">
+          <div class="product-badges-row" id="productBadges">
+            <span class="product-badge badge-hot">HOT ðŸ”¥</span>
+          </div>
+          <h1 id="productName">Loading...</h1>
+          <div id="productRating" class="product-rating-detail"></div>
+
+          <div class="product-price-detail">
+            <span class="price-current" id="productPrice">â‚¹0</span>
+            <span class="price-original" id="productOriginal">â‚¹0</span>
+            <span class="price-save" id="productSave"></span>
+          </div>
+          <p class="tax-note"><i class="fa fa-check-circle"></i> Inclusive of all taxes &nbsp;|&nbsp; <i class="fa fa-shipping-fast"></i> Free shipping above â‚¹999</p>
+
+          <!-- Color -->
+          <div class="option-group">
+            <label class="option-label">COLOR</label>
+            <div class="color-options" id="colorOptions"></div>
+          </div>
+
+          <!-- Size -->
+          <div class="option-group">
+            <div class="size-label-row">
+              <label class="option-label">SIZE: <strong id="selectedSize">M</strong></label>
+              <button class="size-guide-btn" onclick="document.getElementById('sizeGuideModal').classList.add('open')">
+                <i class="fa fa-ruler-horizontal"></i> Size Guide
+              </button>
+            </div>
+            <div class="size-options" id="sizeOptions"></div>
+          </div>
+
+          <!-- Qty -->
+          <div class="option-group">
+            <label class="option-label">QUANTITY</label>
+            <div class="qty-control-large">
+              <button onclick="changeDetailQty(-1)">âˆ’</button>
+              <span id="detailQty">1</span>
+              <button onclick="changeDetailQty(1)">+</button>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="product-ctas">
+            <button class="btn-add-bag" id="addToBagBtn">
+              <i class="fa fa-shopping-bag"></i> ADD TO BAG
+            </button>
+            <button class="btn-buy-now" id="buyNowBtn">
+              BUY NOW
+            </button>
+          </div>
+
+          <!-- Offers -->
+          <div class="offers-strip">
+            <div class="offer-pill"><i class="fa fa-tag"></i> Use SHARK10 for 10% off</div>
+            <div class="offer-pill"><i class="fa fa-undo"></i> 7-day easy returns</div>
+            <div class="offer-pill"><i class="fa fa-shield-alt"></i> 100% authentic</div>
+          </div>
+
+          <!-- Accordion -->
+          <div class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                Product Details <i class="fa fa-plus"></i>
+              </button>
+              <div class="accordion-body">
+                <ul>
+                  <li>100% premium cotton</li>
+                  <li>Oversized / relaxed fit</li>
+                  <li>Ribbed collar & cuffs</li>
+                  <li>Drop shoulder design</li>
+                  <li>Machine washable â€” cold wash</li>
+                  <li>Made in India ðŸ‡®ðŸ‡³</li>
+                </ul>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                Size & Fit <i class="fa fa-plus"></i>
+              </button>
+              <div class="accordion-body">
+                <p>Model is 5'10" wearing size M. Oversized fit â€” size down for a regular look.</p>
+                <table class="size-table">
+                  <tr><th>Size</th><th>Chest</th><th>Length</th></tr>
+                  <tr><td>XS</td><td>36"</td><td>26"</td></tr>
+                  <tr><td>S</td><td>38"</td><td>27"</td></tr>
+                  <tr><td>M</td><td>40"</td><td>28"</td></tr>
+                  <tr><td>L</td><td>42"</td><td>29"</td></tr>
+                  <tr><td>XL</td><td>44"</td><td>30"</td></tr>
+                  <tr><td>XXL</td><td>46"</td><td>31"</td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                Shipping & Returns <i class="fa fa-plus"></i>
+              </button>
+              <div class="accordion-body">
+                <p>Ships within 48 hours. Free shipping on orders above â‚¹999. Easy 7-day returns on unworn items with tags intact. COD available.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust badges -->
+          <div class="trust-badges">
+            <div><i class="fa fa-lock"></i><span>Secure Payment</span></div>
+            <div><i class="fa fa-undo"></i><span>Easy Returns</span></div>
+            <div><i class="fa fa-certificate"></i><span>100% Authentic</span></div>
+            <div><i class="fa fa-headset"></i><span>24/7 Support</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews-section" id="reviews">
+    <div class="container">
+      <h2>Customer Reviews</h2>
+      <div id="reviewsSection"></div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>You May Also Like</h2>
+        <a href="shop.html" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="relatedGrid"></div>
+    </div>
+  </section>
+
+  <!-- Size Guide Modal -->
+  <div class="modal-overlay" id="sizeGuideModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Size Guide</h3>
+        <button onclick="document.getElementById('sizeGuideModal').classList.remove('open')"><i class="fa fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom:16px;color:#666;font-size:13px;">All measurements are in inches. For best fit, measure your chest at the widest point.</p>
+        <table class="size-table full">
+          <tr><th>Size</th><th>Chest</th><th>Waist</th><th>Hip</th><th>Length</th></tr>
+          <tr><td>XS</td><td>32â€“34</td><td>26â€“28</td><td>34â€“36</td><td>26</td></tr>
+          <tr><td>S</td><td>34â€“36</td><td>28â€“30</td><td>36â€“38</td><td>27</td></tr>
+          <tr><td>M</td><td>36â€“38</td><td>30â€“32</td><td>38â€“40</td><td>28</td></tr>
+          <tr><td>L</td><td>38â€“40</td><td>32â€“34</td><td>40â€“42</td><td>29</td></tr>
+          <tr><td>XL</td><td>40â€“42</td><td>34â€“36</td><td>42â€“44</td><td>30</td></tr>
+          <tr><td>XXL</td><td>42â€“44</td><td>36â€“38</td><td>44â€“46</td><td>31</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="fa fa-arrow-up"></i></button>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/products.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/product.js"></script>
+  <script>
+    // Close modal on overlay click
+    document.getElementById('sizeGuideModal').addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('open');
+    });
+  </script>
+</body>
+</html>
+
+

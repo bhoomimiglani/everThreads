@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | BonkersCorner</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/checkout.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <!-- Minimal checkout header -->
+  <header class="checkout-header">
+    <a href="../index.html" class="logo">BONKERS<span>CORNER</span></a>
+    <div class="checkout-steps">
+      <span class="step active"><i class="fa fa-shopping-cart"></i> Cart</span>
+      <i class="fa fa-chevron-right step-sep"></i>
+      <span class="step active"><i class="fa fa-map-marker-alt"></i> Address</span>
+      <i class="fa fa-chevron-right step-sep"></i>
+      <span class="step" id="paymentStep"><i class="fa fa-credit-card"></i> Payment</span>
+    </div>
+    <div class="checkout-secure"><i class="fa fa-lock"></i> Secure Checkout</div>
+  </header>
+
+  <main class="checkout-main">
+    <div class="checkout-grid">
+
+      <!-- LEFT: Form -->
+      <div class="checkout-form-col">
+
+        <!-- Contact -->
+        <div class="checkout-card" id="contactSection">
+          <div class="checkout-card-header">
+            <span class="step-num">1</span>
+            <h3>Contact Information</h3>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" id="email" placeholder="you@example.com" required />
+              <span class="field-error" id="emailErr"></span>
+            </div>
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="phone" placeholder="+91 98765 43210" maxlength="13" required />
+              <span class="field-error" id="phoneErr"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="checkout-card" id="addressSection">
+          <div class="checkout-card-header">
+            <span class="step-num">2</span>
+            <h3>Delivery Address</h3>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" id="firstName" placeholder="Rahul" required />
+              <span class="field-error" id="firstNameErr"></span>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" id="lastName" placeholder="Sharma" required />
+            </div>
+          </div>
+          <div class="form-group full">
+            <label>Address Line 1 *</label>
+            <input type="text" id="addr1" placeholder="House/Flat No., Building, Street" required />
+            <span class="field-error" id="addr1Err"></span>
+          </div>
+          <div class="form-group full">
+            <label>Address Line 2</label>
+            <input type="text" id="addr2" placeholder="Area, Landmark (optional)" />
+          </div>
+          <div class="form-row three">
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" id="city" placeholder="Mumbai" required />
+              <span class="field-error" id="cityErr"></span>
+            </div>
+            <div class="form-group">
+              <label>PIN Code *</label>
+              <input type="text" id="pin" placeholder="400001" maxlength="6" required />
+              <span class="field-error" id="pinErr"></span>
+            </div>
+            <div class="form-group">
+              <label>State *</label>
+              <select id="state" required>
+                <option value="">Select State</option>
+                <option>Andhra Pradesh</option><option>Assam</option><option>Bihar</option>
+                <option>Chhattisgarh</option><option>Delhi</option><option>Goa</option>
+                <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option>
+                <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+                <option>Madhya Pradesh</option><option selected>Maharashtra</option>
+                <option>Manipur</option><option>Meghalaya</option><option>Odisha</option>
+                <option>Punjab</option><option>Rajasthan</option><option>Tamil Nadu</option>
+                <option>Telangana</option><option>Uttar Pradesh</option><option>Uttarakhand</option>
+                <option>West Bengal</option>
+              </select>
+              <span class="field-error" id="stateErr"></span>
+            </div>
+          </div>
+          <label class="checkbox-label">
+            <input type="checkbox" id="saveAddress" checked />
+            Save this address for future orders
+          </label>
+        </div>
+
+        <!-- Payment -->
+        <div class="checkout-card" id="paymentSection">
+          <div class="checkout-card-header">
+            <span class="step-num">3</span>
+            <h3>Payment Method</h3>
+          </div>
+
+          <div class="payment-methods">
+            <label class="payment-option">
+              <input type="radio" name="payment" value="razorpay" checked />
+              <div class="payment-option-content">
+                <div class="payment-icons-row">
+                  <i class="fab fa-google-pay" style="font-size:28px;color:#4285f4"></i>
+                  <i class="fab fa-cc-visa" style="font-size:24px;color:#1a1f71"></i>
+                  <i class="fab fa-cc-mastercard" style="font-size:24px;color:#eb001b"></i>
+                  <span class="upi-badge">UPI</span>
+                </div>
+                <div>
+                  <strong>Pay Online</strong>
+                  <p>UPI, Cards, Net Banking, Wallets via Razorpay</p>
+                </div>
+                <span class="recommended-badge">RECOMMENDED</span>
+              </div>
+            </label>
+
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cod" />
+              <div class="payment-option-content">
+                <i class="fa fa-money-bill-wave" style="font-size:24px;color:#2d6a4f"></i>
+                <div>
+                  <strong>Cash on Delivery</strong>
+                  <p>Pay when your order arrives. Extra â‚¹49 COD fee.</p>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Prepaid offer -->
+          <div class="prepaid-offer">
+            <i class="fa fa-tag"></i>
+            <span>Pay online & get <strong>5% extra off</strong> on your order!</span>
+          </div>
+        </div>
+
+        <!-- Place Order Button -->
+        <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()">
+          <i class="fa fa-lock"></i> PLACE ORDER SECURELY
+        </button>
+        <p class="order-note">By placing your order, you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.</p>
+      </div>
+
+      <!-- RIGHT: Order Summary -->
+      <div class="order-summary-col">
+        <div class="order-summary-card">
+          <h3>Order Summary <span id="summaryCount"></span></h3>
+
+          <!-- Items -->
+          <div class="summary-items" id="summaryItems"></div>
+
+          <!-- Coupon -->
+          <div class="coupon-section">
+            <div class="coupon-input-row">
+              <input type="text" id="couponCode" placeholder="Enter coupon code" />
+              <button onclick="applyCheckoutCoupon()">APPLY</button>
+            </div>
+            <div id="couponMsg" class="coupon-msg"></div>
+            <div class="available-coupons">
+              <p>Available coupons:</p>
+              <div class="coupon-chips">
+                <span onclick="useCoupon('SHARK10')">SHARK10</span>
+                <span onclick="useCoupon('FIRST15')">FIRST15</span>
+                <span onclick="useCoupon('SUMMER20')">SUMMER20</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-totals" id="summaryTotals"></div>
+
+          <div class="summary-trust">
+            <div><i class="fa fa-shield-alt"></i> 100% Secure</div>
+            <div><i class="fa fa-undo"></i> Easy Returns</div>
+            <div><i class="fa fa-headset"></i> 24/7 Support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Order Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box success-modal">
+      <div class="success-icon"><i class="fa fa-check-circle"></i></div>
+      <h2>Order Placed!</h2>
+      <p id="successMsg">Your order has been placed successfully.</p>
+      <p class="order-id-display" id="orderIdDisplay"></p>
+      <p style="color:#666;font-size:13px;margin-bottom:24px;">You'll receive a confirmation email shortly.</p>
+      <a href="../index.html" class="btn-primary">CONTINUE SHOPPING</a>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/products.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/checkout.js"></script>
+</body>
+</html>
+
+
