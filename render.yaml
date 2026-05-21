@@ -4,9 +4,9 @@ services:
     env: node
     region: singapore   # closest to India
     plan: free
-    rootDir: server
-    buildCommand: npm install
-    startCommand: node index.js
+    rootDir: .
+    buildCommand: cd client && npm install && npm run build && cd ../server && npm install
+    startCommand: node server/index.js
     envVars:
       - key: NODE_ENV
         value: production

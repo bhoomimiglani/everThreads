@@ -1,0 +1,38 @@
+.account-page { padding: 40px 0 80px; min-height: 70vh; }
+.account-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
+.account-header h1 { font-family: var(--font-heading); font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.account-header p { color: var(--gray); font-size: 14px; }
+.btn-outline-dark { padding: 10px 20px; border: 1.5px solid var(--black); font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; transition: all var(--transition); display: flex; align-items: center; gap: 8px; }
+.btn-outline-dark:hover { background: var(--black); color: var(--white); }
+.account-layout { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+.account-sidebar { border: 1px solid var(--border-color); }
+.sidebar-tab { width: 100%; padding: 14px 20px; text-align: left; font-size: 13px; font-weight: 500; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; transition: all var(--transition); }
+.sidebar-tab:last-child { border-bottom: none; }
+.sidebar-tab:hover { background: var(--light-gray); }
+.sidebar-tab.active { background: var(--black); color: var(--white); }
+.account-content h2 { font-family: var(--font-heading); font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+.empty-state { text-align: center; padding: 60px 20px; }
+.empty-state i { font-size: 48px; color: #ddd; margin-bottom: 16px; display: block; }
+.empty-state p { color: var(--gray); margin-bottom: 20px; }
+.orders-list { display: flex; flex-direction: column; gap: 16px; }
+.order-card { border: 1px solid var(--border-color); padding: 20px; }
+.order-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.order-id { font-family: monospace; font-weight: 700; font-size: 14px; margin-right: 12px; }
+.order-date { font-size: 12px; color: var(--gray); }
+.order-status-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; text-transform: capitalize; }
+.order-items-preview { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; }
+.order-item-mini { width: 52px; height: 64px; overflow: hidden; background: var(--light-gray); }
+.order-item-mini img { width: 100%; height: 100%; object-fit: cover; }
+.order-item-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #ccc; }
+.more-items { font-size: 12px; color: var(--gray); font-weight: 600; }
+.order-card-footer { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--gray); border-top: 1px solid var(--border-color); padding-top: 12px; }
+.payment-method { font-size: 11px; font-weight: 700; background: var(--light-gray); padding: 3px 8px; }
+.profile-form { display: flex; flex-direction: column; gap: 16px; max-width: 480px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 12px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; }
+.form-group input { padding: 11px 14px; border: 1.5px solid var(--border-color); font-size: 14px; outline: none; transition: border-color var(--transition); }
+.form-group input:focus { border-color: var(--black); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 13px 28px; background: var(--black); color: var(--white); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; transition: all var(--transition); border: 2px solid var(--black); cursor: pointer; }
+.btn-primary:hover { background: transparent; color: var(--black); }
+@media (max-width: 768px) { .account-layout { grid-template-columns: 1fr; } .account-sidebar { display: flex; overflow-x: auto; } .sidebar-tab { border-bottom: none; border-right: 1px solid var(--border-color); white-space: nowrap; } }

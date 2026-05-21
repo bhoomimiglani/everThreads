@@ -24,9 +24,9 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
-// ── Static files — serve frontend ──
-// In production on Render, bonkers-clone is at ../bonkers-clone relative to server/
-const frontendPath = path.join(__dirname, '..', 'bonkers-clone');
+// ── Static files — serve React frontend build ──
+// React build output is at ../client/dist relative to server/
+const frontendPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(frontendPath));
 console.log('Serving frontend from:', frontendPath);
 
