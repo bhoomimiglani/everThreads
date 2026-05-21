@@ -38,6 +38,11 @@ app.use('/api/users',     require('./routes/users'));
 app.use('/api/admin',     require('./routes/admin'));
 app.use('/api/inventory', require('./routes/inventory'));
 app.use('/api/payment',   require('./routes/payment'));
+app.use('/api/coupons',   require('./routes/coupons'));
+app.use('/api/returns',   require('./routes/returns'));
+app.use('/api/settings',  require('./routes/settings'));
+app.use('/api/reviews',   require('./routes/reviews'));
+app.use('/api/reports',   require('./routes/reports'));
 
 // ── Health check ──
 app.get('/api/health', (req, res) => res.json({

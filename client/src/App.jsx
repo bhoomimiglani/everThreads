@@ -6,7 +6,7 @@ import { CartProvider } from './context/CartContext'
 // Layout
 import Layout from './components/layout/Layout'
 
-// Pages
+// Storefront pages
 import Home from './pages/Home'
 import Shop from './pages/Shop'
 import ProductDetail from './pages/ProductDetail'
@@ -18,7 +18,7 @@ import Account from './pages/Account'
 import Wishlist from './pages/Wishlist'
 import NotFound from './pages/NotFound'
 
-// Admin
+// Admin pages
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminDashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/Products'
@@ -26,6 +26,12 @@ import AdminOrders from './pages/admin/Orders'
 import AdminInventory from './pages/admin/Inventory'
 import AdminCustomers from './pages/admin/Customers'
 import AdminAnalytics from './pages/admin/Analytics'
+import AdminCoupons from './pages/admin/Coupons'
+import AdminReturns from './pages/admin/Returns'
+import AdminReviews from './pages/admin/Reviews'
+import AdminReports from './pages/admin/Reports'
+import AdminSettings from './pages/admin/Settings'
+import AdminAuditLog from './pages/admin/AuditLog'
 import AdminGuard from './components/admin/AdminGuard'
 
 export default function App() {
@@ -54,7 +60,7 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Route>
 
-          {/* Admin panel */}
+          {/* Admin panel — all routes protected */}
           <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
             <Route index element={<AdminDashboard />} />
             <Route path="products" element={<AdminProducts />} />
@@ -62,6 +68,12 @@ export default function App() {
             <Route path="inventory" element={<AdminInventory />} />
             <Route path="customers" element={<AdminCustomers />} />
             <Route path="analytics" element={<AdminAnalytics />} />
+            <Route path="coupons" element={<AdminCoupons />} />
+            <Route path="returns" element={<AdminReturns />} />
+            <Route path="reviews" element={<AdminReviews />} />
+            <Route path="reports" element={<AdminReports />} />
+            <Route path="settings" element={<AdminSettings />} />
+            <Route path="audit" element={<AdminAuditLog />} />
           </Route>
         </Routes>
       </CartProvider>
