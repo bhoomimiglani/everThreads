@@ -19,14 +19,8 @@ export default function Shop() {
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
-  const [filtersOpen, setFiltersOpen] = useState(false)
 
-  const category = searchParams.get('category') || ''
-  const search = searchParams.get('search') || ''
-  const sort = searchParams.get('sort') || ''
-  const tag = searchParams.get('tag') || ''
-  const collection = searchParams.get('collection') || ''
-
+  // Reset to page 1 whenever filters change, then fetch
   useEffect(() => {
     setPage(1)
   }, [category, search, sort, tag, collection])
@@ -36,11 +30,11 @@ export default function Shop() {
       setLoading(true)
       try {
         const params = new URLSearchParams({ page, limit: 12 })
-        if (category) params.set('category', category)
-        if (search) params.set('search', search)
-        if (sort) params.set('sort', sort)
-        if (tag) params.set('tag', tag)
-        if (collection) params.set('collection', collection)
+        if (category)   params.set('category',   category)
+        if (search)     params.set('search',      search)
+        if (sort)       params.set('sort',        sort)
+        if (tag)        params.set('tag',         tag)
+        if (collection) params.set('collection',  collection)
         const { data } = await api.get(`/products?${params}`)
         setProducts(data.products || [])
         setTotal(data.total || 0)

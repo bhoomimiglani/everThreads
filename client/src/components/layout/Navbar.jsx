@@ -8,22 +8,22 @@ import './Navbar.css'
 const NAV_ITEMS = [
   {
     label: 'WOMEN', dropdown: [
-      { title: 'Tops', links: [['Crop Tees','women&q=crop+tee'],['Oversized Tees','women&q=oversized'],['Hoodies','women&q=hoodie'],['Sweatshirts','women&q=sweatshirt']] },
-      { title: 'Bottoms', links: [['Joggers','women&q=jogger'],['Shorts','women&q=shorts'],['Co-ords','women&q=co-ord']] },
-      { title: 'Collections', links: [['Summer Society','women&collection=summer'],['Elevated Basics','women&collection=basics'],['New Arrivals','women&tag=new']] },
+      { title: 'Tops', links: [['Crop Tees','/shop?category=women&search=crop+tee'],['Oversized Tees','/shop?category=women&search=oversized'],['Hoodies','/shop?category=women&search=hoodie'],['Sweatshirts','/shop?category=women&search=sweatshirt']] },
+      { title: 'Bottoms', links: [['Joggers','/shop?category=women&search=jogger'],['Shorts','/shop?category=women&search=shorts'],['Co-ords','/shop?category=women&search=co-ord']] },
+      { title: 'Collections', links: [['Summer Society','/shop?category=women&collection=summer'],['Elevated Basics','/shop?category=women&collection=basics'],['New Arrivals','/shop?category=women&tag=new']] },
     ]
   },
   {
     label: 'MEN', dropdown: [
-      { title: 'Tops', links: [['T-Shirts','men&q=tee'],['Oversized Tees','men&q=oversized'],['Hoodies','men&q=hoodie'],['Sweatshirts','men&q=sweatshirt']] },
-      { title: 'Bottoms', links: [['Joggers','men&q=jogger'],['Shorts','men&q=shorts'],['Cargo Pants','men&q=cargo']] },
-      { title: 'Collections', links: [['Drift 2.0','men&collection=drift'],['Elevated Basics','men&collection=basics'],['New Arrivals','men&tag=new']] },
+      { title: 'Tops', links: [['T-Shirts','/shop?category=men&search=tee'],['Oversized Tees','/shop?category=men&search=oversized'],['Hoodies','/shop?category=men&search=hoodie'],['Sweatshirts','/shop?category=men&search=sweatshirt']] },
+      { title: 'Bottoms', links: [['Joggers','/shop?category=men&search=jogger'],['Shorts','/shop?category=men&search=shorts'],['Cargo Pants','/shop?category=men&search=cargo']] },
+      { title: 'Collections', links: [['Drift 2.0','/shop?category=men&collection=drift'],['Elevated Basics','/shop?category=men&collection=basics'],['New Arrivals','/shop?category=men&tag=new']] },
     ]
   },
   {
     label: 'ACCESSORIES', dropdown: [
-      { title: 'Accessories', links: [['Caps','accessories&q=cap'],['Bags','accessories&q=bag'],['Socks','accessories&q=socks']] },
-      { title: 'Collections', links: [['Summer Society','collection=summer'],['Drift 2.0','collection=drift'],['Elevated Basics','collection=basics']] },
+      { title: 'Accessories', links: [['Caps','/shop?category=accessories&search=cap'],['Bags','/shop?category=accessories&search=bag'],['Socks','/shop?category=accessories&search=socks']] },
+      { title: 'Collections', links: [['Summer Society','/shop?collection=summer'],['Drift 2.0','/shop?collection=drift'],['Elevated Basics','/shop?collection=basics']] },
     ]
   },
   { label: 'NEW IN', href: '/shop?tag=new' },
@@ -93,8 +93,8 @@ export default function Navbar() {
                         {item.dropdown.map(col => (
                           <div key={col.title} className="dropdown-col">
                             <h4>{col.title}</h4>
-                            {col.links.map(([label, params]) => (
-                              <Link key={label} to={`/shop?category=${params}`} onClick={() => setMobileOpen(false)}>{label}</Link>
+                            {col.links.map(([label, href]) => (
+                              <Link key={label} to={href} onClick={() => setMobileOpen(false)}>{label}</Link>
                             ))}
                           </div>
                         ))}
