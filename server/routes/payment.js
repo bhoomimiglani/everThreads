@@ -7,13 +7,13 @@ const AuditLog = require('../models/AuditLog');
 // ── Helper: get Razorpay instance ──
 function getRzp() {
   const Razorpay = require('razorpay');
-  if (!process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID === 'rzp_test_placeholder') {
-    return null; // demo mode
+  const keyId = process.env.RAZORPAY_KEY_ID || '';
+  const keySecret = process.env.RAZORPAY_KEY_SECRET || '';
+  // Only use demo mode if keys are literally missing or still placeholder
+  if (!keyId || !keySecret || keyId === 'rzp_test_placeholder') {
+    return null;
   }
-  return new Razorpay({
-    key_id:     process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
-  });
+  return new Razorpay({ key_id: keyId, key_secret: keySecret });
 }
 
 // ── POST /api/payment/create-order ──
@@ -67,7 +67,8 @@ router.post('/verify', protect, async (req, res) => {
       return res.json({ success: true, verified: true, demo: true });
     }
 
-    if (!process.env.RAZORPAY_KEY_SECRET || process.env.RAZORPAY_KEY_SECRET === 'placeholder_secret') {
+    const secret = process.env.RAZORPAY_KEY_SECRET;
+    if (!secret || secret === 'placeholder_secret') {
       return res.json({ success: true, verified: true, demo: true });
     }
 
