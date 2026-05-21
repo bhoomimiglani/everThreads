@@ -6,11 +6,11 @@ import './Shop.css'
 
 const CATEGORIES = ['all', 'men', 'women', 'unisex', 'accessories']
 const SORT_OPTIONS = [
-  { value: '', label: 'Featured' },
+  { value: '',          label: 'Featured' },
   { value: 'price-low', label: 'Price: Low to High' },
-  { value: 'price-high', label: 'Price: High to Low' },
-  { value: 'newest', label: 'Newest First' },
-  { value: 'discount', label: 'Best Discount' },
+  { value: 'price-high',label: 'Price: High to Low' },
+  { value: 'newest',    label: 'Newest First' },
+  { value: 'discount',  label: 'Best Discount' },
 ]
 
 export default function Shop() {
@@ -20,12 +20,21 @@ export default function Shop() {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
 
-  // Reset to page 1 whenever filters change, then fetch
+  // Read all filters from URL — support both 'search' and 'q' params
+  const category   = searchParams.get('category')   || ''
+  const search     = searchParams.get('search') || searchParams.get('q') || ''
+  const sort       = searchParams.get('sort')       || ''
+  const tag        = searchParams.get('tag')        || ''
+  const collection = searchParams.get('collection') || ''
+
+  // Reset to page 1 when any filter changes
   useEffect(() => {
     setPage(1)
   }, [category, search, sort, tag, collection])
 
+  // Fetch products whenever filters or page change
   useEffect(() => {
+    let cancelled = false
     const fetchProducts = async () => {
       setLoading(true)
       try {
@@ -36,12 +45,17 @@ export default function Shop() {
         if (tag)        params.set('tag',         tag)
         if (collection) params.set('collection',  collection)
         const { data } = await api.get(`/products?${params}`)
-        setProducts(data.products || [])
-        setTotal(data.total || 0)
-      } catch { setProducts([]) }
-      setLoading(false)
+        if (!cancelled) {
+          setProducts(data.products || [])
+          setTotal(data.total || 0)
+        }
+      } catch {
+        if (!cancelled) setProducts([])
+      }
+      if (!cancelled) setLoading(false)
     }
     fetchProducts()
+    return () => { cancelled = true }
   }, [category, search, sort, tag, collection, page])
 
   const setFilter = (key, val) => {
@@ -52,14 +66,21 @@ export default function Shop() {
 
   const pages = Math.ceil(total / 12)
 
+  const pageTitle = search
+    ? `Search: "${search}"`
+    : category
+      ? category.charAt(0).toUpperCase() + category.slice(1)
+      : tag === 'new' ? 'New Arrivals'
+      : tag === 'trending' ? 'Trending'
+      : collection ? collection.charAt(0).toUpperCase() + collection.slice(1)
+      : 'All Products'
+
   return (
     <div className="shop-page">
       <div className="shop-header">
         <div className="container">
-          <h1>
-            {search ? `Search: "${search}"` : category ? category.charAt(0).toUpperCase() + category.slice(1) : 'All Products'}
-          </h1>
-          <p>{total} products</p>
+          <h1>{pageTitle}</h1>
+          <p>{loading ? 'Loading...' : `${total} product${total !== 1 ? 's' : ''}`}</p>
         </div>
       </div>
 
@@ -93,7 +114,9 @@ export default function Shop() {
             <i className="fa fa-search" />
             <h3>No products found</h3>
             <p>Try adjusting your filters or search term</p>
-            <button className="btn-primary" onClick={() => setSearchParams({})}>Clear Filters</button>
+            <button className="btn-primary" onClick={() => setSearchParams({})}>
+              Clear All Filters
+            </button>
           </div>
         ) : (
           <>
