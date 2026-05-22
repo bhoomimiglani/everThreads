@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BRAND } from '../../utils/brand'
+import Logo from '../Logo'
 import './Footer.css'
 
 export default function Footer() {
@@ -10,7 +11,7 @@ export default function Footer() {
 
           {/* Brand column */}
           <div className="footer-brand-col">
-            <Link to="/" className="footer-logo">EVER<span>THREADS</span></Link>
+            <Logo size="md" dark />
             <p className="footer-tagline">"{BRAND.motto}"</p>
             <p className="footer-desc">{BRAND.description}</p>
             <div className="footer-socials">

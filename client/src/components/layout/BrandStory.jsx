@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BRAND } from '../../utils/brand'
+import Logo from '../Logo'
 import toast from 'react-hot-toast'
 import './BrandStory.css'
 
@@ -38,7 +39,7 @@ export default function BrandStory() {
 
         {/* Right — content */}
         <div className="brand-story-right">
-          <h2 className="brand-story-name">EVER<span>THREADS</span></h2>
+          <h2 className="brand-story-name"><Logo size="lg" dark noLink /></h2>
           <h3 className="brand-story-subtitle">OUR STORY</h3>
           <p className="brand-story-desc">
             Everthreads isn't just a brand — it's a culture. Built for the people creating something of their own. For designers, editors, artists, filmmakers, gamers, photographers, musicians, and dreamers chasing something bigger than themselves. We create story-driven clothing inspired by creative culture, self-expression, and the energy of modern creators. Every drop is designed with intention — carrying its own concept, emotion, and identity.

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
 import { BRAND } from '../../utils/brand'
+import Logo from '../Logo'
 import api from '../../utils/api'
 import './Navbar.css'
 
@@ -142,7 +143,7 @@ export default function Navbar() {
           </div>
 
           {/* CENTER */}
-          <Link to="/" className="logo">EVER<span>THREADS</span></Link>
+          <Logo size="md" />
 
           {/* RIGHT */}
           <div className="header-right">

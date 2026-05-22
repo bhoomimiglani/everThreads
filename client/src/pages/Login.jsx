@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import Logo from '../components/Logo'
 import toast from 'react-hot-toast'
 import './Auth.css'
 
@@ -59,6 +60,9 @@ export default function Login() {
   return (
     <div className="auth-page">
       {/* Page title */}
+      <div className="auth-page-logo">
+        <Logo size="lg" />
+      </div>
       <p className="auth-page-title">
         {tab === 'login' ? 'Login with Everthreads' : 'Create your Everthreads account'}
       </p>

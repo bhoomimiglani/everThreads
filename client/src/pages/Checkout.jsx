@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
+import Logo from '../components/Logo'
 import api from '../utils/api'
 import { fmt } from '../utils/format'
 import { loadRazorpayScript, openRazorpayCheckout } from '../utils/razorpay'
@@ -250,7 +251,7 @@ export default function Checkout() {
 
         {/* Header */}
         <div className="checkout-header">
-          <Link to="/" className="logo">EVER<span>THREAD</span></Link>
+          <Logo size="md" />
           <div className="checkout-steps">
             {['Address','Payment','Review'].map((s, i) => (
               <div key={s} className={`step${step > i+1 ? ' done' : step === i+1 ? ' active' : ''}`}>

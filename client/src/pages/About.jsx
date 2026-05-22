@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BRAND } from '../utils/brand'
+import Logo from '../components/Logo'
 import './About.css'
 
 export default function About() {
@@ -10,6 +11,7 @@ export default function About() {
       <section className="about-hero">
         <div className="about-hero-bg" />
         <div className="about-hero-content">
+          <div className="about-hero-logo-wrap"><Logo size="xl" dark noLink /></div>
           <p className="about-eyebrow">Our Story</p>
           <h1>FOR CREATORS.<br />BY CREATORS.</h1>
           <p className="about-hero-sub">Story-driven clothing for the generation that creates.</p>

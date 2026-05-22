@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../utils/api'
 import ProductCard from '../components/product/ProductCard'
+import Logo from '../components/Logo'
 import './Home.css'
+import './HomeBrandBanner.css'
 
 const SLIDES = [
   {
@@ -247,6 +249,22 @@ export default function Home() {
               ? basics.map(p => <ProductCard key={p._id} product={p} />)
               : Array(4).fill(0).map((_, i) => <div key={i} className="product-skeleton" />)
             }
+          </div>
+        </div>
+      </section>
+
+      {/* ── BRAND HERO BANNER — above testimonials ── */}
+      <section className="home-brand-banner">
+        <div className="home-brand-banner-bg" />
+        <div className="home-brand-banner-content">
+          <div className="home-brand-logo-wrap">
+            <Logo size="xl" dark noLink />
+          </div>
+          <p className="home-brand-motto">"Wear Your Story."</p>
+          <p className="home-brand-sub">Story-driven clothing for the generation that creates.<br />Built in India. Designed for creators.</p>
+          <div className="home-brand-btns">
+            <Link to="/shop" className="btn-primary">SHOP NOW</Link>
+            <Link to="/about" className="btn-outline">OUR STORY</Link>
           </div>
         </div>
       </section>

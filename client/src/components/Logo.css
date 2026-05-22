@@ -1,0 +1,60 @@
+/* Import cursive font for "Ever" */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.et-logo-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.et-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  line-height: 1;
+  color: var(--black);
+}
+
+/* "Ever" — cursive script */
+.et-logo-ever {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  color: inherit;
+  letter-spacing: 0;
+}
+
+/* "Threads" — bold sans-serif */
+.et-logo-threads {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  color: inherit;
+  letter-spacing: -0.5px;
+}
+
+/* ™ superscript */
+.et-logo-tm {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 0.35em;
+  color: inherit;
+  opacity: 0.6;
+  margin-left: 1px;
+  vertical-align: super;
+}
+
+/* Sizes */
+.et-logo--sm .et-logo-ever    { font-size: 22px; }
+.et-logo--sm .et-logo-threads { font-size: 18px; }
+
+.et-logo--md .et-logo-ever    { font-size: 30px; }
+.et-logo--md .et-logo-threads { font-size: 24px; }
+
+.et-logo--lg .et-logo-ever    { font-size: 42px; }
+.et-logo--lg .et-logo-threads { font-size: 34px; }
+
+.et-logo--xl .et-logo-ever    { font-size: 64px; }
+.et-logo--xl .et-logo-threads { font-size: 52px; }
+
+/* Dark (white) version */
+.et-logo--dark { color: var(--white); }
+.et-logo--dark .et-logo-tm { opacity: 0.5; }

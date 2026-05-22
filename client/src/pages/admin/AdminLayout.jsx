@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import Logo from '../../components/Logo'
 import api from '../../utils/api'
 import './Admin.css'
 
@@ -70,7 +71,7 @@ export default function AdminLayout() {
       {/* Sidebar */}
       <aside className="admin-sidebar">
         <div className="admin-brand">
-          <span className="admin-logo">EVER<span>THREADS</span></span>
+          <Logo size="sm" dark noLink />
           <span className="admin-badge">Admin</span>
         </div>
 

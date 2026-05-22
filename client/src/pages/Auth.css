@@ -10,10 +10,14 @@
 }
 
 /* Page title above card */
+.auth-page-logo {
+  margin-bottom: 12px;
+  text-align: center;
+}
 .auth-page-title {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
-  color: #333;
+  color: #444;
   margin-bottom: 16px;
   text-align: center;
 }
