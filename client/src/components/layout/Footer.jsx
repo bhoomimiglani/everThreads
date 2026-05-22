@@ -14,6 +14,10 @@ export default function Footer() {
             <Logo size="md" dark />
             <p className="footer-tagline">"{BRAND.motto}"</p>
             <p className="footer-desc">{BRAND.description}</p>
+            <Link to="/about" className="footer-story-link">
+              <span>Read Our Story</span>
+              <i className="fa fa-arrow-right" />
+            </Link>
             <div className="footer-socials">
               <a href={BRAND.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
                 <i className="fab fa-instagram" />

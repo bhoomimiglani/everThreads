@@ -40,6 +40,38 @@
   line-height: 1.7;
   margin-bottom: 20px;
 }
+/* Read Our Story link */
+.footer-story-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  width: fit-content;
+  position: relative;
+  transition: gap 0.2s;
+}
+.footer-story-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.footer-story-link:hover::after { transform: scaleX(1); }
+.footer-story-link:hover { gap: 12px; }
+.footer-story-link i { font-size: 10px; transition: transform 0.2s; }
+.footer-story-link:hover i { transform: translateX(3px); }
+
 .footer-socials {
   display: flex;
   gap: 10px;
